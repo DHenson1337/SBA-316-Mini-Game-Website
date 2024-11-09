@@ -58,7 +58,7 @@ const textNodes = [
   },
   {
     id: 2,
-    text: "The next step in the adventure: Blah, Blah, Blah, Blah, blah, blah, blah, s",
+    text: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iure aperiam dignissimos ipsam placeat architecto quis assumenda, ipsa provident repudiandae vitae dicta et aliquam corporis quod odit soluta quas voluptatem at. \n Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iure aperiam dignissimos ipsam placeat architecto quis assumenda, ipsa provident repudiandae vitae dicta et aliquam corporis quod odit soluta quas voluptatem at. \n Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iure aperiam dignissimos ipsam placeat architecto quis assumenda, ipsa provident repudiandae vitae dicta et aliquam corporis quod odit soluta quas voluptatem at.\n Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iure aperiam dignissimos ipsam placeat architecto quis assumenda, ipsa provident repudiandae vitae dicta et aliquam corporis quod odit soluta quas voluptatem at. \nLorem ipsum, dolor sit amet consectetur adipisicing elit. Iure aperiam dignissimos ipsam placeat architecto quis assumenda, ipsa provident repudiandae vitae dicta et aliquam corporis quod odit soluta quas voluptatem at.",
     options: [
       {
         text: "User button click option if they choose they peak",

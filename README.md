@@ -25,3 +25,8 @@ It features games such as
    5. A Spooky toogle switch. (Pending)
       Something Spoooooky, will happen if clicked, or not
       depends on how much i've really understand Javascript up to this point heh.
+
+Future Updates:
+
+PunIshment Mountain:
+Need to add asycronous effect for a type writter. (Tried b4 but failed >.<>)
