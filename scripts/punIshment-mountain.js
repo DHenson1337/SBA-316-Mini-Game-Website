@@ -1,3 +1,28 @@
+// Loads the video swapping elements on page load
+document.addEventListener("DOMContentLoaded", () => {
+  const toggleLight = document.getElementById("toggle-mode");
+  const videoElement = document.querySelector(".background-clip");
+
+  //Array of background video's
+  const videoBackgrounds = [
+    "Images/backGrounds/stock-footage-camping-in-the-mountains-at-night-video-footage-with-bonfire-and-tend-beautiful-view-background.webm",
+    "Images/backGrounds/stock-footage-camping-in-the-mountains-at-night-video-footage-with-bonfire-and-tend-beautiful-view-background (1).webm",
+    "Images/backGrounds/stock-footage-camping-in-the-mountains-at-night-video-footage-with-bonfire-and-tend-beautiful-view-background (2).webm",
+  ];
+
+  let currentIndex = 0;
+
+  //Swaps background Video
+  const toggleBackgroundVideo = () => {
+    currentIndex = (currentIndex + 1) % videoBackgrounds.length; // Loops through Video's
+    videoElement.src = videoBackgrounds[currentIndex];
+    videoElement.load(); //Reload the video source
+    videoElement.play(); //Play the new video
+  };
+
+  toggleLight.addEventListener("click", toggleBackgroundVideo);
+});
+
 const textElement = document.getElementById("text");
 const optionButtonsElement = document.getElementById("option-buttons");
 
