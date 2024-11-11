@@ -37,6 +37,7 @@ video.background-clip {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+  flex-wrap: wrap;
   padding: 10px;
   margin: 10px 0;
   text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7); /* Adds a subtle shadow to the text */
@@ -99,6 +100,7 @@ video.background-clip {
   background-attachment: fixed;
   background-size: cover;
   user-select: none; /*Prevents text from being copyable  */
+  margin-top: 15px;
 }
 
 .btn-grid {

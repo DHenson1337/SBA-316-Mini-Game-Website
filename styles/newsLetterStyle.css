@@ -37,6 +37,7 @@ video.background-clip {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+  flex-wrap: wrap;
   padding: 10px;
   margin: 10px 0;
   text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7); /* Adds a subtle shadow to the text */
@@ -62,11 +63,11 @@ video.background-clip {
 }
 
 .main {
-  min-height: 70%;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   flex-direction: column;
+  flex: 1;
   background: linear-gradient(
     135deg,
     rgba(0, 0, 0, 0.7),
@@ -75,6 +76,7 @@ video.background-clip {
   backdrop-filter: blur(10px); /* Frosted glass effect */
   border: 5px solid rgba(209, 6, 224, 0.8); /* Bright neon purple border */
   min-width: 40%;
+  min-height: 70%;
   max-height: 80%;
   max-width: 60%;
   padding: 20px;
@@ -110,6 +112,14 @@ video.background-clip {
   border-radius: 15px;
   background: rgba(0, 0, 0, 0.5); /* Semi-transparent dark overlay */
   z-index: -1; /* Send behind the content */
+}
+
+.tag {
+  z-index: 1;
+  position: relative; /* Ensure it appears above other elements */
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  user-select: none; /*Prevents text from being copyable  */
 }
 
 #text {
@@ -250,6 +260,7 @@ video.background-clip {
 .dropdown:hover .dropdown-content {
   display: block;
 }
+
 @keyframes slowPurplePulse {
   0%,
   100% {

@@ -23,6 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
   toggleLight.addEventListener("click", toggleBackgroundVideo);
 });
 
+//The start of the games content=========================
 const textElement = document.getElementById("text");
 const optionButtonsElement = document.getElementById("option-buttons");
 
@@ -38,7 +39,7 @@ function startGame() {
 //shows what option is available
 function showTextNode(textNodeIndex) {
   const textNode = textNodes.find((textNode) => textNode.id === textNodeIndex); //gets current text node and then the next in the index
-  textElement.innerText = textNode.text;
+  textElement.innerText = textNode.text; //Possibly add styling here in the future
   while (optionButtonsElement.firstChild) {
     optionButtonsElement.removeChild(optionButtonsElement.firstChild); //Removes all options
   }
@@ -47,7 +48,7 @@ function showTextNode(textNodeIndex) {
     if (showOption(option)) {
       const button = document.createElement("button");
       button.innerText = option.text;
-      button.classList.add("btn");
+      button.classList.add("btn"); //Possible add an if for future button class patterns
       button.addEventListener("click", () => selectOption(option));
       optionButtonsElement.appendChild(button);
     }
