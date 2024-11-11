@@ -1,0 +1,263 @@
+* {
+  /* background-color: rgb(0, 0, 0);
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-image: url(../Images/bg5.webp);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+    color: aliceblue; */
+  font-family: "Press Start 2P", cursive;
+}
+
+#container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 2px;
+  height: 100vh;
+}
+
+video.background-clip {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1; /* Send it behind other elements */
+}
+
+.header {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Black with 50% transparency */
+  color: white; /* White text for better visibility */
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 10px;
+  margin: 10px 0;
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7); /* Adds a subtle shadow to the text */
+}
+
+.header a {
+  color: white; /* Default white color */
+  text-decoration: none; /* Remove underline */
+  transition: transform 0.5s ease; /* Smooth scaling effect */
+}
+
+/* Hover effect */
+.header a:hover {
+  animation: slowPurplePulse 2.5s infinite; /* Slow, powerful purple pulse animation */
+  transform: scale(1.1); /* Slightly scale up on hover */
+}
+
+.title {
+  background-color: rgba(0, 0, 0, 0.5); /* Black with 50% transparency */
+  color: white; /* White text for better visibility */
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7); /* Adds a subtle shadow to the text */
+  border-radius: 15px;
+}
+
+.main {
+  min-height: 70%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.7),
+    rgba(209, 6, 224, 0.5)
+  ); /* Dark background with a neon purple gradient */
+  backdrop-filter: blur(10px); /* Frosted glass effect */
+  border: 5px solid rgba(209, 6, 224, 0.8); /* Bright neon purple border */
+  min-width: 40%;
+  max-height: 80%;
+  max-width: 60%;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(209, 6, 224, 0.8), 0 0 10px rgba(0, 0, 0, 0.6); /* Neon purple glow with a shadow */
+  gap: 20px; /* Spacing between content */
+  background-color: transparent; /* Ensure background is transparent for the gradient */
+  position: relative; /* Positioning for pseudo-elements */
+  overflow: hidden;
+  color: white;
+  font-family: "Press Start 2P", cursive; /* Retro arcade font */
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.main:hover {
+  box-shadow: 0 0 30px rgba(209, 6, 224, 1), 0 0 15px rgba(0, 0, 0, 0.7); /* Stronger glow on hover */
+  transform: scale(1.05); /* Slight scale effect for depth */
+}
+
+.main .terminal-text {
+  color: #d8bfff; /* Soft purple terminal text for contrast */
+  font-size: 1.2rem;
+  text-shadow: 0 0 4px rgba(209, 6, 224, 0.8), 0 0 10px rgba(209, 6, 224, 0.5); /* Glow effect */
+}
+
+.main::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 15px;
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent dark overlay */
+  z-index: -1; /* Send behind the content */
+}
+
+#text {
+  font-size: 1.5em;
+  min-height: 60%;
+  max-height: 60%;
+  height: 100vh;
+  overflow-y: auto; /* Enable scrolling */
+  margin-bottom: 10px;
+  color: aliceblue;
+  display: flex;
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5); /* Subtle text shadow for contrast */
+  background-image: url(../Images/solidBlackBackground.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+.btn-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 10px;
+  flex: 1;
+  max-height: 50%; /* Ensure grid does not exceed container */
+  min-height: 35%;
+  width: 100%;
+  box-shadow: 0 0 12px 2px rgba(0, 0, 0, 0.3);
+  background-color: transparent;
+
+  background-image: url(../Images/Lines\ Grid.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  background-size: cover;
+}
+.btn {
+  background-color: hsl(289, 100%, 50%);
+  border: 1px solid hsl(0, 0%, 100%);
+  border-radius: 165px;
+  padding: 10px;
+  color: white;
+  font-size: 0.9em; /* Scaled down font size */
+  text-align: center;
+  word-wrap: break-word;
+  white-space: normal;
+
+  height: auto;
+  overflow-y: auto; /* Enable scrolling */
+  min-height: 40px; /* Minimum height to handle content */
+  max-height: 60px; /* Maximum height to prevent overflow */
+  transition: background 0.3s, transform 0.3s; /* Smooth transition for hover effect */
+}
+.btn {
+  cursor: pointer;
+}
+.btn:hover {
+  border-color: black;
+  background: rgba(238, 0, 255, 0.5); /* More opaque on hover */
+  transform: scale(1.05); /* Slightly scale up on hover */
+}
+
+.footer {
+  width: 100%;
+  text-align: center;
+  /* padding: 2px; */
+  position: relative;
+  bottom: 0;
+  /* Semi-transparent footer */
+  /* box-shadow: 0 0 12px 2px rgba(0, 0, 0, 0.3); */
+  color: white;
+}
+
+#error p {
+  color: red;
+  font-weight: bold;
+}
+.switch {
+  height: 50px;
+  width: 50px;
+  border-radius: 15px;
+  background: transparent;
+  border-color: black;
+  border: 4px solid hsl(298, 100%, 50%);
+}
+
+.newsLetterForm {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  width: 200px;
+}
+
+.dropdown-btn {
+  width: 100%;
+  padding: 10px;
+  background-color: hsl(298, 100%, 50%);
+  color: white;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  border-radius: 5px;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #dc8fde;
+  min-width: 100%;
+  border: 1px solid #ddd;
+  z-index: 1;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.dropdown-content label {
+  display: block;
+  padding: 8px 10px;
+  cursor: pointer;
+}
+
+.dropdown-content input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+@keyframes slowPurplePulse {
+  0%,
+  100% {
+    text-shadow: 0 0 10px rgba(128, 0, 128, 0.8),
+      0 0 20px rgba(128, 0, 128, 0.5), 0 0 30px rgba(128, 0, 128, 0.3);
+  }
+  50% {
+    text-shadow: 0 0 25px rgba(128, 0, 128, 1), 0 0 40px rgba(128, 0, 128, 0.8),
+      0 0 60px rgba(128, 0, 128, 0.6);
+  }
+}

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Game Website</title>
+    <link rel="stylesheet" href="../styles/newsLetterStyle.css" />
+    <script defer src="../scripts/newsLetterScript.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="container">
+      <video autoplay loop muted playsinline class="background-clip">
+        <source src="../Images/backGrounds/stockNL1.webm" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+      <div class="header">
+        <a href="../index.html" class="navigation">PunIshment-mountain</a>
+        <a href="#" class="navigation">Game 2</a>
+        <a href="#" class="navigation">Game 3</a>
+        <a href="#" class="navigation">Newsletter</a>
+        <a href="#"
+          ><img
+            src="../Images/Icons/light-bulb-icon-flat-style-lightbulb-vector-illustration-isolated-background-lamp-idea-business-concept-130598643.webp"
+            alt="Light Switch"
+            class="switch"
+            id="toggle-mode"
+        /></a>
+      </div>
+      <div class="title">Newsletter</div>
+      <div class="main">
+        <h1 class="tag">Phuni &#10024 Powah!</h1>
+        <p class="slogan">
+         I made this website due to my love for games <br><s>and tottaly not cause it was required for a class</s> <br><br> I hope someday to be able to make my imagination into a playable reality! <br>Until then subscribe for future updates, and thanks for viewing!
+        </p>
+        <div id="error"></div>
+        <form class="newsLetterForm">
+          <input
+            id="newsName"
+            type="text"
+            name="name"
+            placeholder="Enter Name"
+          />
+
+          <input
+            id="newsEmail"
+            type="text"
+            name="email"
+            placeholder="Enter Email"
+          />
+          <div class="dropdown">
+            <button class="dropdown-btn">Fav Genres</button>
+            <div class="dropdown-content">
+              <label><input type="checkbox" value="Action" /> Action</label>
+              <label
+                ><input type="checkbox" value="Adventure" /> Adventure</label
+              >
+              <label><input type="checkbox" value="RPG" /> RPG</label>
+              <label><input type="checkbox" value="Shooter" /> Shooter</label>
+              <label><input type="checkbox" value="Puzzle" /> Puzzle</label>
+              <label><input type="checkbox" value="Strategy" /> Strategy</label>
+              <label
+                ><input type="checkbox" value="Simulation" /> Simulation</label
+              >
+              <label><input type="checkbox" value="Sports" /> Sports</label>
+              <label><input type="checkbox" value="Horror" /> Horror</label>
+              <label><input type="checkbox" value="Fighting" /> Fighting</label>
+            </div>
+          </div>
+          <button class="btn">Submit</button>
+        </form>
+      </div>
+      <div class="footer">
+        <p class="copyright">
+          <span>&#169;</span> 2024-20XX Studio: D.Henson All rights reserved.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

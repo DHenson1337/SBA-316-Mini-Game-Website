@@ -9,7 +9,7 @@
   background-attachment: fixed;
   background-size: cover;
   color: aliceblue; */
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-family: "Press Start 2P", cursive;
 }
 
 #container {
@@ -82,7 +82,9 @@ video.background-clip {
 }
 
 #text {
-  font-size: 1.5em;
+  line-height: 35px;
+  letter-spacing: 0px;
+  font-size: 0.9em;
   min-height: 60%;
   max-height: 60%;
   height: 100vh;

@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "Images/backGrounds/stock-footage-camping-in-the-mountains-at-night-video-footage-with-bonfire-and-tend-beautiful-view-background (1).webm",
     "Images/backGrounds/stock-footage-camping-in-the-mountains-at-night-video-footage-with-bonfire-and-tend-beautiful-view-background (2).webm",
   ];
-
+  //Initial index for background swapper
   let currentIndex = 0;
 
   //Swaps background Video
@@ -71,7 +71,7 @@ function selectOption(option) {
 const textNodes = [
   {
     id: 1,
-    text: "You play as Puni, with their uniqe powah of word Pun-Ishment, your goal is to reach the top of the summit while facing various challanges Good Luck!",
+    text: "You play as Phuni, with their uniqe powah of word Pun-Ishment, your goal is to reach the top of the summit while facing various challanges Good Luck!",
     options: [
       {
         text: "Together we Peak!",
