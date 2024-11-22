@@ -11,7 +11,7 @@ It features games such as
    A text based adventure with lots of puns and a hint of cringe, sure to bring smiles to all
    pun lovers and secret pun lovers. (You know who you are :P)
 
-2. Game Pending:
+2. PokeManz: A list of familiar games, but with chooseable sprites provided by the Pokemon API
 
 3. Game Pending:
 
@@ -30,3 +30,6 @@ Future Updates:
 
 PunIshment Mountain:
 Need to add asycronous effect for a type writter. (Tried b4 but failed >.<>)
+PunIshment mountain - Need to add actual story
+
+PokeManz game section

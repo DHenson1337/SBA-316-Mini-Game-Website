@@ -120,6 +120,8 @@ video.background-clip {
   color: white;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
   user-select: none; /*Prevents text from being copyable  */
+  animation: slowPurplePulse 2.5s infinite; /* Slow, powerful purple pulse animation */
+  transform: scale(1.1); /* Slightly scale up on hover */
 }
 
 #text {

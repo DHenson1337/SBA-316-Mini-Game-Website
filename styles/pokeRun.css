@@ -1,0 +1,244 @@
+* {
+  /* background-color: rgb(0, 0, 0);
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-image: url(../Images/bg5.webp);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+    color: aliceblue; */
+  font-family: "Press Start 2P", cursive;
+}
+
+#container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 2px;
+  height: 100vh;
+}
+
+video.background-clip {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1; /* Send it behind other elements */
+}
+
+.header {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Black with 50% transparency */
+  color: white; /* White text for better visibility */
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  padding: 10px;
+  margin: 10px 0;
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7); /* Adds a subtle shadow to the text */
+}
+
+.header a {
+  color: white; /* Default white color */
+  text-decoration: none; /* Remove underline */
+  transition: transform 0.5s ease; /* Smooth scaling effect */
+}
+
+/* Hover effect */
+.header a:hover {
+  animation: slowWhitePulse 2.5s infinite; /* Slow, powerful pulse animation */
+  transform: scale(1.1); /* Slightly scale up on hover */
+}
+
+.title {
+  background-color: rgba(0, 0, 0, 0.5); /* Black with 50% transparency */
+  color: white; /* White text for better visibility */
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7); /* Adds a subtle shadow to the text */
+  border-radius: 15px;
+}
+
+.gameBox {
+  border-color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.leftbox {
+  display: flex;
+  flex-direction: column;
+}
+
+.spriteBox {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  padding: 10px;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  max-height: 400px;
+  overflow-y: auto; /* Enable scrolling for overflow content */
+}
+
+.spriteBox img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  border: 1px solid white;
+  border-radius: 5px;
+}
+
+.spriteBox {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  padding: 10px;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  max-height: 400px;
+  overflow-y: auto; /* Enable scrolling for overflow content */
+}
+
+.spriteBox img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  border: 1px solid white;
+  border-radius: 5px;
+}
+
+.spriteBox label {
+  font-size: 0.8em;
+  text-align: center;
+  color: white;
+}
+.spriteBox label {
+  font-size: 0.8em;
+  text-align: center;
+  color: white;
+}
+.main {
+  background: rgba(255, 255, 255, 0.3); /* Semi-transparent white background */
+  backdrop-filter: blur(10px); /* Blur effect to simulate the frosted glass */
+  border: 1px solid rgba(255, 255, 255, 0.5); /* Border to enhance glass effect */
+  /* display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-self: center; */
+  /* width: 100vw;
+    height: 100vh; */
+  min-width: 40%;
+  max-height: 80%;
+  max-width: 50%;
+  padding: 10px;
+  border-radius: 15px;
+  box-shadow: 0 0 2px 1px;
+  gap: 20px; /* Adds spacing between story text and buttons */
+  background-color: black;
+}
+
+#text {
+  line-height: 35px;
+  letter-spacing: 0px;
+  font-size: 0.9em;
+  min-height: 60%;
+  max-height: 60%;
+  height: 100vh;
+  overflow-y: auto; /* Enable scrolling */
+  margin-bottom: 10px;
+  color: aliceblue;
+  display: flex;
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5); /* Subtle text shadow for contrast */
+  background-image: url(../Images/solidBlackBackground.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  background-size: cover;
+  user-select: none; /*Prevents text from being copyable  */
+  margin-top: 15px;
+}
+
+.btn-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 10px;
+  flex: 1;
+  max-height: 50%; /* Ensure grid does not exceed container */
+  min-height: 35%;
+  width: 100%;
+  box-shadow: 0 0 12px 2px rgba(0, 0, 0, 0.3);
+  background-color: transparent;
+
+  background-image: url(../Images/Lines\ Grid.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  background-size: cover;
+}
+.btn {
+  background-color: hsl(200, 100%, 50%);
+  border: 1px solid hsl(200, 100%, 50%);
+  border-radius: 65px;
+  padding: 10px;
+  color: white;
+  font-size: 0.9em; /* Scaled down font size */
+  text-align: center;
+  word-wrap: break-word;
+  white-space: normal;
+  width: 100%;
+  height: auto;
+  overflow-y: auto; /* Enable scrolling */
+  min-height: 70px; /* Minimum height to handle content */
+  max-height: 100px; /* Maximum height to prevent overflow */
+  transition: background 0.3s, transform 0.3s; /* Smooth transition for hover effect */
+}
+.btn {
+  cursor: pointer;
+}
+.btn:hover {
+  border-color: black;
+  background: rgba(0, 0, 255, 0.5); /* More opaque on hover */
+  transform: scale(1.05); /* Slightly scale up on hover */
+}
+
+.footer {
+  width: 100%;
+  text-align: center;
+  /* padding: 2px; */
+  position: relative;
+  bottom: 0;
+  /* Semi-transparent footer */
+  /* box-shadow: 0 0 12px 2px rgba(0, 0, 0, 0.3); */
+  color: white;
+}
+
+.switch {
+  height: 50px;
+  width: 50px;
+  border-radius: 15px;
+  background: transparent;
+  border-color: black;
+  border: 4px solid hsl(200, 100%, 50%);
+}
+
+@keyframes slowWhitePulse {
+  0%,
+  100% {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+      0 0 20px rgba(255, 255, 255, 0.5), 0 0 30px rgba(255, 255, 255, 0.3);
+  }
+  50% {
+    text-shadow: 0 0 25px rgba(255, 255, 255, 1),
+      0 0 40px rgba(255, 255, 255, 0.8), 0 0 60px rgba(255, 255, 255, 0.6);
+  }
+}
