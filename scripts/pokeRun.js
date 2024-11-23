@@ -4,6 +4,7 @@ const TYPE_URL = "https://pokeapi.co/api/v2/type/";
 const GENERATION_URL = "https://pokeapi.co/api/v2/generation/";
 const missingNo = "../Images/PokeMon imgs/MissingNo_RB.webp";
 
+//#region  Video Backgrounds
 // Loads the video swapping elements on page load
 document.addEventListener("DOMContentLoaded", () => {
   const toggleLight = document.getElementById("toggle-mode");
@@ -29,6 +30,9 @@ document.addEventListener("DOMContentLoaded", () => {
   toggleLight.addEventListener("click", toggleBackgroundVideo);
 });
 
+//#endregion
+
+//#region Pokemon Card Getter
 //Get Pokemon by name
 const fetchPokemonByName = async (pokeName) => {
   try {
@@ -73,67 +77,90 @@ const isShiny = () => Math.random() < 0.01;
 //The missingNo function
 const renderFallback = () => {
   const spriteBox = document.querySelector(".spriteBox");
+  spriteBox.innerHTML = "";
   const img = document.createElement("img");
   img.src = missingNo;
   img.alt = "MissingNo.";
   spriteBox.appendChild(img);
 };
 
-//renders sprites in the spriteBox
-const renderSprites = async (pokeNames) => {
+//renders  sorted sprites in the spriteBox
+const renderSortedSprites = async (pokeNames) => {
   const spriteBox = document.querySelector(".spriteBox");
   spriteBox.innerHTML = ""; // Clear the box
 
-  if (pokeNames.length > 0) {
-    for (const pokeName of pokeNames) {
-      const pokemon = await fetchPokemonByName(pokeName);
+  const sortedPokemon = await fetchPokemonDetails(pokeNames);
 
-      if (pokemon) {
-        // Create a container for each Pokémon
-        const pokeContainer = document.createElement("div");
-        pokeContainer.classList.add("pokemon-container");
+  if (sortedPokemon.length > 0) {
+    sortedPokemon.forEach((pokemon) => {
+      // Create a container for each Pokémon
+      const pokeContainer = document.createElement("div");
+      pokeContainer.classList.add("pokemon-container");
 
-        // Name above the sprite
-        const nameElement = document.createElement("h3");
-        nameElement.textContent = pokemon.name.toUpperCase();
-        nameElement.classList.add("pokemon-name");
+      // Name above the sprite
+      const nameElement = document.createElement("h3");
+      nameElement.textContent = `${pokemon.name.toUpperCase()} (#${
+        pokemon.id
+      })`;
+      nameElement.classList.add("pokemon-name");
 
-        // Sprite image
-        const img = document.createElement("img");
-        img.src = isShiny()
-          ? pokemon.sprites.front_shiny
-          : pokemon.sprites.front_default;
-        img.alt = pokemon.name;
-        img.classList.add("pokemon-sprite");
+      // Sprite image
+      const img = document.createElement("img");
+      img.src = pokemon.sprite || missingNo;
+      img.alt = pokemon.name;
+      img.classList.add("pokemon-sprite");
 
-        // Type below the sprite
-        const typeElement = document.createElement("p");
-        typeElement.textContent = `Type: ${pokemon.types
-          .map((type) => type.type.name)
-          .join(", ")}`;
-        typeElement.classList.add("pokemon-type");
+      // Type below the sprite
+      const typeElement = document.createElement("p");
+      typeElement.textContent = `Type: ${pokemon.types.join(", ")}`;
+      typeElement.classList.add("pokemon-type");
 
-        // Append elements to container
-        pokeContainer.appendChild(nameElement);
-        pokeContainer.appendChild(img);
-        pokeContainer.appendChild(typeElement);
+      // Append elements to container
+      pokeContainer.appendChild(nameElement);
+      pokeContainer.appendChild(img);
+      pokeContainer.appendChild(typeElement);
 
-        // Append container to the sprite box
-        spriteBox.appendChild(pokeContainer);
-      } else {
-        renderFallback();
-      }
-    }
+      // Append container to the sprite box
+      spriteBox.appendChild(pokeContainer);
+    });
   } else {
     renderFallback();
   }
 };
 
 // Enable search by type and element
-
 const getIntersection = (arr1, arr2) => {
   const set1 = new Set(arr1);
   return arr2.filter((item) => set1.has(item));
+};
+
+//The ultimate sort and missing pokemon function (#return Mimikyu)
+const fetchPokemonDetails = async (pokeNames) => {
+  const sortedPokemon = [];
+
+  for (const name of pokeNames) {
+    try {
+      const pokemon = await fetchPokemonByName(name);
+      if (pokemon) {
+        sortedPokemon.push({
+          id: pokemon.id,
+          name: pokemon.name.replace(/-.*$/, ""), // Removes anything after a "-"
+          types: pokemon.types.map((type) => type.type.name),
+          sprite: isShiny()
+            ? pokemon.sprites.front_shiny
+            : pokemon.sprites.front_default,
+        });
+      } else {
+        console.warn(`Could not fetch details for Pokemon: ${name}`);
+      }
+    } catch (error) {
+      console.error(`Team Rocket stole ${name}: ${error.message}`);
+    }
+  }
+
+  //Sorts the pokemon by ID
+  sortedPokemon.sort((a, b) => a.id - b.id);
+  return sortedPokemon;
 };
 
 //Button Event listener
@@ -144,24 +171,42 @@ document.querySelector(".pokeButton").addEventListener("click", async () => {
 
   let pokemonNames = [];
 
+  // Fetch by name
   if (nameInput) {
-    // Get by name
     const pokemon = await fetchPokemonByName(nameInput);
-    if (pokemon) pokemonNames.push(pokemon.name);
-  } else if (typeInput && genInput) {
-    // Get by type and generation
-    const typePokemon = await fetchPokemonByType(typeInput);
-    const genPokemon = await fetchPokemonByGeneration(genInput);
-    pokemonNames = getIntersection(typePokemon, genPokemon);
-  } else if (typeInput) {
-    // Get by type only
-    pokemonNames = await fetchPokemonByType(typeInput);
-  } else if (genInput) {
-    // Get by generation only
-    pokemonNames = await fetchPokemonByGeneration(genInput);
-  } else {
-    alert("It's dangerous to go alone, take this （╯°□°）╯︵◓");
+    if (pokemon) {
+      pokemonNames.push(pokemon.name);
+    }
+  }
+
+  // Fetch by type and/or generation
+  if (typeInput || genInput) {
+    const typePokemon = typeInput ? await fetchPokemonByType(typeInput) : [];
+    const genPokemon = genInput ? await fetchPokemonByGeneration(genInput) : [];
+
+    if (typeInput && genInput) {
+      // If both type and generation are provided, get the intersection
+      pokemonNames = getIntersection(
+        pokemonNames.length ? pokemonNames : typePokemon,
+        genPokemon
+      );
+    } else {
+      // Use the fetched names directly if only one filter is provided
+      pokemonNames = [
+        ...(pokemonNames.length ? pokemonNames : []),
+        ...(typePokemon.length ? typePokemon : genPokemon),
+      ];
+    }
+  }
+
+  //  MissingNo fallback
+  if (!pokemonNames.length) {
+    renderFallback();
     return;
   }
-  renderSprites(pokemonNames);
+
+  // Render valid Pokémon
+  renderSortedSprites([...new Set(pokemonNames)]); // Remove duplicates, if any
 });
+
+//#endregion
