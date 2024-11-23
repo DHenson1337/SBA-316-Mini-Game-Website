@@ -11,8 +11,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   //Array of background video's
   const videoBackgrounds = [
-    "../Images/PokeMon imgs/starter1.mp4",
     "../Images/PokeMon imgs/starter2.mp4",
+    "../Images/PokeMon imgs/starter1.mp4",
     "../Images/PokeMon imgs/starter3.mp4",
   ];
   //Initial index for background swapper
@@ -129,6 +129,13 @@ const renderSprites = async (pokeNames) => {
   }
 };
 
+// Enable search by type and element
+
+const getIntersection = (arr1, arr2) => {
+  const set1 = new Set(arr1);
+  return arr2.filter((item) => set1.has(item));
+};
+
 //Button Event listener
 document.querySelector(".pokeButton").addEventListener("click", async () => {
   const nameInput = document.querySelector(".pokeName").value.trim();
@@ -138,11 +145,19 @@ document.querySelector(".pokeButton").addEventListener("click", async () => {
   let pokemonNames = [];
 
   if (nameInput) {
+    // Get by name
     const pokemon = await fetchPokemonByName(nameInput);
     if (pokemon) pokemonNames.push(pokemon.name);
+  } else if (typeInput && genInput) {
+    // Get by type and generation
+    const typePokemon = await fetchPokemonByType(typeInput);
+    const genPokemon = await fetchPokemonByGeneration(genInput);
+    pokemonNames = getIntersection(typePokemon, genPokemon);
   } else if (typeInput) {
+    // Get by type only
     pokemonNames = await fetchPokemonByType(typeInput);
   } else if (genInput) {
+    // Get by generation only
     pokemonNames = await fetchPokemonByGeneration(genInput);
   } else {
     alert("It's dangerous to go alone, take this （╯°□°）╯︵◓");

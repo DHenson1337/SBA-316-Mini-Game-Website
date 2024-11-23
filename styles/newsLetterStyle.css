@@ -12,6 +12,12 @@
   font-family: "Press Start 2P", cursive;
 }
 
+body,
+html {
+  margin: 0; /* Removes default margin */
+  padding: 0; /* Removes default padding */
+}
+
 #container {
   display: flex;
   flex-direction: column;
@@ -31,16 +37,16 @@ video.background-clip {
 }
 
 .header {
+  margin: 0; /* Remove any margin around the header */
+  padding: 10px; /* Add padding only inside the header */
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Black with 50% transparency */
-  color: white; /* White text for better visibility */
+  background-color: rgba(0, 0, 0, 0.5); /* Black with transparency */
+  color: white;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
   flex-wrap: wrap;
-  padding: 10px;
-  margin: 10px 0;
-  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7); /* Adds a subtle shadow to the text */
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
 }
 
 .header a {
@@ -60,6 +66,9 @@ video.background-clip {
   color: white; /* White text for better visibility */
   text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7); /* Adds a subtle shadow to the text */
   border-radius: 15px;
+  margin-top: 20px;
+  text-align: center;
+  padding: 10px;
 }
 
 .main {
