@@ -32,4 +32,8 @@ PunIshment Mountain:
 Need to add asycronous effect for a type writter. (Tried b4 but failed >.<>)
 PunIshment mountain - Need to add actual story
 
-PokeManz game section
+PokeManz game section:
+
+Pokemon run:
+Fix search function
+Actually add the run portion to the game
