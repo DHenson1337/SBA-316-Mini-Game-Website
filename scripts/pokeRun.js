@@ -4,6 +4,11 @@ const TYPE_URL = "https://pokeapi.co/api/v2/type/";
 const GENERATION_URL = "https://pokeapi.co/api/v2/generation/";
 const missingNo = "../Images/PokeMon imgs/MissingNo_RB.webp";
 
+const character = document.getElementById("character");
+const block = document.getElementById("block");
+const main = document.querySelector(".main");
+const title = document.querySelector(".title");
+
 //#region  Video Backgrounds
 // Loads the video swapping elements on page load
 document.addEventListener("DOMContentLoaded", () => {
@@ -213,5 +218,36 @@ document.querySelector(".pokeButton").addEventListener("click", async () => {
   // Render valid Pokémon
   renderSortedSprites([...new Set(pokemonNames)]); // Remove duplicates, if any
 });
+
+//#endregion
+
+//#region Poke-Run Game
+
+//Jumping Function for our character
+function jump() {
+  character.classList.toggle("animate");
+}
+
+// Remove the "animate" class after the animation ends
+character.addEventListener("animationend", () => {
+  character.classList.remove("animate");
+});
+
+main.addEventListener("click", jump);
+
+// Collision Detection
+const checkDead = setInterval(function () {
+  let characterTop = parseInt(
+    window.getComputedStyle(character).getPropertyValue("top")
+  );
+  let blockLeft = parseInt(
+    window.getComputedStyle(block).getPropertyValue("left")
+  );
+  if (blockLeft < 20 && blockLeft > 0 && characterTop >= 130) {
+    block.style.animation = "none";
+    block.style.display = "none";
+    title.textContent = "Loser!";
+  }
+}, 10);
 
 //#endregion
