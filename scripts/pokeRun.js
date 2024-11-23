@@ -142,13 +142,18 @@ const fetchPokemonDetails = async (pokeNames) => {
     try {
       const pokemon = await fetchPokemonByName(name);
       if (pokemon) {
+        const sprite =
+          pokemon.name === "mimikyu"
+            ? pokemon.sprites.front_default // Use the disguised form
+            : isShiny()
+            ? pokemon.sprites.front_shiny
+            : pokemon.sprites.front_default;
+
         sortedPokemon.push({
           id: pokemon.id,
           name: pokemon.name.replace(/-.*$/, ""), // Removes anything after a "-"
           types: pokemon.types.map((type) => type.type.name),
-          sprite: isShiny()
-            ? pokemon.sprites.front_shiny
-            : pokemon.sprites.front_default,
+          sprite: sprite,
         });
       } else {
         console.warn(`Could not fetch details for Pokemon: ${name}`);
@@ -158,7 +163,7 @@ const fetchPokemonDetails = async (pokeNames) => {
     }
   }
 
-  //Sorts the pokemon by ID
+  // Sorts Pokémon by ID
   sortedPokemon.sort((a, b) => a.id - b.id);
   return sortedPokemon;
 };
