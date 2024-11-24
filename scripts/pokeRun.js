@@ -290,33 +290,38 @@ function resetGame() {
 }
 
 //Jumping Function for our character
-function jump() {
-  if (!character.classList.contains("animate")) {
+let isJumping = false;
+
+// Trigger the jump animation
+document.addEventListener("keydown", (e) => {
+  if (e.key === "x" && !isJumping) {
+    // x triggers jump
     character.classList.add("animate");
+    isJumping = true;
+
+    setTimeout(() => {
+      // After jump animation ends, check for collision
+      if (checkCollision()) {
+        console.log("Collision detected!");
+        // Handle collision (e.g., reset position, stop game, etc.)
+      }
+      isJumping = false;
+      character.classList.remove("animate");
+    }, 800); // Time corresponding to jump duration
   }
-}
-
-// Remove the "animate" class after the animation ends
-character.addEventListener("animationend", () => {
-  character.classList.remove("animate");
 });
-
-main.addEventListener("click", jump);
 
 // Collision detection function
 const checkCollision = () => {
-  let characterTop = parseInt(
-    window.getComputedStyle(character).getPropertyValue("top")
+  const characterRect = character.getBoundingClientRect();
+  const blockRect = block.getBoundingClientRect();
+
+  return (
+    characterRect.left < blockRect.left + blockRect.width &&
+    characterRect.left + characterRect.width > blockRect.left &&
+    characterRect.top < blockRect.top + blockRect.height &&
+    characterRect.top + characterRect.height > blockRect.top
   );
-  let blockLeft = parseInt(
-    window.getComputedStyle(block).getPropertyValue("left")
-  );
-  if (blockLeft < 20 && blockLeft > 0 && characterTop >= 130) {
-    block.style.animation = "none";
-    block.style.display = "none";
-    title.textContent = "Loser!";
-    clearInterval(checkCollisionInterval); // Stop the game if character hits the block
-  }
 };
 //#endregion
 

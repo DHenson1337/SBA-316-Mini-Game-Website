@@ -314,7 +314,7 @@ h3 {
   width: 100%;
   height: 100%;
   object-fit: contain; /* Preserve the aspect ratio */
-  position: absolute;
+  position: relative;
 }
 
 /* The class for adding Jump */
