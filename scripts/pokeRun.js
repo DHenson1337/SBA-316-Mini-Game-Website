@@ -9,6 +9,7 @@ const block = document.getElementById("block");
 const main = document.querySelector(".main");
 const title = document.querySelector(".title");
 const gameStartButton = document.getElementById("gameStart");
+const characterContainer = document.getElementById("character-container");
 
 //#region  Video Backgrounds
 // Loads the video swapping elements on page load
@@ -116,6 +117,11 @@ const renderSortedSprites = async (pokeNames) => {
       img.alt = pokemon.name;
       img.classList.add("pokemon-sprite");
 
+      //Double Click Event to add sprite to games
+      img.addEventListener("dblclick", () => {
+        character.src = pokemon.backSprite || missingNo;
+      });
+
       // Type below the sprite
       const typeElement = document.createElement("p");
       typeElement.textContent = `Type: ${pokemon.types.join(", ")}`;
@@ -155,11 +161,19 @@ const fetchPokemonDetails = async (pokeNames) => {
             ? pokemon.sprites.front_shiny
             : pokemon.sprites.front_default;
 
+        const backSprite =
+          pokemon.name === "mimikyu"
+            ? pokemon.sprites.back_default
+            : isShiny()
+            ? pokemon.sprites.back_shiny
+            : pokemon.sprites.back_default;
+
         sortedPokemon.push({
           id: pokemon.id,
           name: pokemon.name.replace(/-.*$/, ""), // Removes anything after a "-"
           types: pokemon.types.map((type) => type.type.name),
           sprite: sprite,
+          backSprite: backSprite,
         });
       } else {
         console.warn(`Could not fetch details for Pokemon: ${name}`);
@@ -243,7 +257,8 @@ function startGame() {
   title.textContent = "Poké Run";
 
   //Reset Positions
-  character.style.top = "150px";
+  characterContainer.style.top = "150px";
+  characterContainer.style.left = "50px";
   block.style.left = "480px";
 
   // Restart animation
@@ -251,12 +266,13 @@ function startGame() {
   block.style.display = "block";
 
   //Enable Collision detection
-  checkDead = setInterval(checkCollision, 10);
+  checkCollisionInterval = setInterval(checkCollision, 10);
 }
 
 // Resets the game:
 function resetGame() {
-  character.style.top = "150px";
+  characterContainer.style.top = "150px";
+  characterContainer.style.left = "50px";
   block.style.left = "480px";
 
   // Reset the blocks animation
@@ -269,13 +285,15 @@ function resetGame() {
   title.textContent = "Poké Run";
 
   //Stop the collision detection
-  clearInterval(checkDead);
+  clearInterval(checkCollisionInterval);
   gameStarted = false; //Sets the game to inactive, like the start
 }
 
 //Jumping Function for our character
 function jump() {
-  character.classList.toggle("animate");
+  if (!character.classList.contains("animate")) {
+    character.classList.add("animate");
+  }
 }
 
 // Remove the "animate" class after the animation ends
@@ -297,7 +315,7 @@ const checkCollision = () => {
     block.style.animation = "none";
     block.style.display = "none";
     title.textContent = "Loser!";
-    clearInterval(checkDead); // Stop the game if character hits the block
+    clearInterval(checkCollisionInterval); // Stop the game if character hits the block
   }
 };
 //#endregion
