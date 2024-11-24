@@ -35,5 +35,7 @@ PunIshment mountain - Need to add actual story
 PokeManz game section:
 
 Pokemon run:
-Fix search function
-Actually add the run portion to the game
+Search function still needs to be refined for pokemon with multiple form x.x
+Fix hit detection for the Poke Run game.
+Add instructions on how to play
+(Potentially some bgm)

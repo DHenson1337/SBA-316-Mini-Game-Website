@@ -118,7 +118,7 @@ video.background-clip {
   border-color: black;
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-between;
   width: 100%;
 }
 
@@ -307,7 +307,7 @@ h3 {
   left: 50px;
   width: 50px;
   height: 50px;
-  overflow: hidden; /* Prevent overflow from large sprites */
+  /* overflow: hidden; Prevent overflow from large sprites */
 }
 
 #character {
@@ -315,6 +315,7 @@ h3 {
   height: 100%;
   object-fit: contain; /* Preserve the aspect ratio */
   position: relative;
+  display: none;
 }
 
 /* The class for adding Jump */
@@ -329,6 +330,7 @@ h3 {
   width: 30px;
   height: 30px;
   animation: block 1.1s infinite linear; /* Change Block Speed*/
+  display: none;
 }
 
 button {

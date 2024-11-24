@@ -120,6 +120,7 @@ const renderSortedSprites = async (pokeNames) => {
       //Double Click Event to add sprite to games
       img.addEventListener("dblclick", () => {
         character.src = pokemon.backSprite || missingNo;
+        character.style.display = "block";
       });
 
       // Type below the sprite
