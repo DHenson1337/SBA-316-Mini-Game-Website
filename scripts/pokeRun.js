@@ -267,7 +267,11 @@ function startGame() {
   block.style.display = "block";
 
   //Enable Collision detection
-  checkCollisionInterval = setInterval(checkCollision, 10);
+  checkCollisionInterval = setInterval(() => {
+    if (checkCollision()) {
+      console.log("Collision detected"); //debugging to determine collision detection window
+    }
+  }, 15); //Collision detection interval
 }
 
 // Resets the game:
@@ -317,12 +321,34 @@ const checkCollision = () => {
   const characterRect = character.getBoundingClientRect();
   const blockRect = block.getBoundingClientRect();
 
-  return (
+  const hasCollision =
     characterRect.left < blockRect.left + blockRect.width &&
     characterRect.left + characterRect.width > blockRect.left &&
     characterRect.top < blockRect.top + blockRect.height &&
-    characterRect.top + characterRect.height > blockRect.top
-  );
+    characterRect.top + characterRect.height > blockRect.top;
+
+  if (hasCollision) {
+    //Debugging for hit detection
+    console.log("Character:", character.getBoundingClientRect());
+    console.log("Block:", block.getBoundingClientRect());
+
+    //Stop the block
+    block.style.animation = "none";
+    block.style.display = "none";
+
+    title.textContent = "Game Over!";
+
+    //Stops checking for collision
+    clearInterval(checkCollisionInterval);
+
+    //Reset Game Status
+
+    gameStarted = false;
+
+    //If a collision is detected
+    return true;
+  }
+  return false;
 };
 //#endregion
 
