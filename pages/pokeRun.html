@@ -10,18 +10,26 @@
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://fonts.cdnfonts.com/css/pokemon-solid"
+    />
   </head>
   <body>
     <div id="container">
       <video autoplay loop muted playsinline class="background-clip">
-        <source src="../Images/PokeMon imgs/starter2.mp4" type="video/mp4" />
+        <source
+          src="../Images/PokeMon imgs/umbreon-under-the-moonlight.1920x1080.mp4"
+          src="../Images/PokeMon imgs/pokeball-house.1920x1080.mp4"
+          type="video/mp4"
+        />
         Your browser does not support the video tag.
       </video>
       <div class="header">
         <a href="../index.html" class="navigation">PunIshment-mountain</a>
-        <a href="#" class="navigation">Pokémanz???</a>
+        <a href="#" class="navigation">Pokémanz?</a>
         <a href="#" class="navigation">Game 3</a>
-        <a href="#" class="navigation">Newsletter</a>
+        <a href="../pages/newsLetter.html" class="navigation">Newsletter</a>
         <a href="#"
           ><img
             src="../Images/PokeMon imgs/pokeballIcon.png"
@@ -33,7 +41,7 @@
       <div class="title">Poké Run</div>
       <div class="gameBox">
         <div class="leftbox">
-          <h3>PC BOX</h3>
+          <h3>Pokémon Center PC</h3>
           <input
             type="text"
             class="pokeName"
@@ -48,9 +56,12 @@
             <label for="" class="sbType">Pokemon Type</label>
           </div>
         </div>
-        <div class="main">
-          <img src="" alt="" id="character" />
-          <div id="block"></div>
+        <div id="hud">
+          <div class="main">
+            <img src="" alt="" id="character" />
+            <div id="block"></div>
+          </div>
+          <button id="gameStart">Start Game</button>
         </div>
         <div class="rightBox">
           <h3>More Games</h3>

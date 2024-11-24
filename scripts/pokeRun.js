@@ -8,6 +8,7 @@ const character = document.getElementById("character");
 const block = document.getElementById("block");
 const main = document.querySelector(".main");
 const title = document.querySelector(".title");
+const gameStartButton = document.getElementById("gameStart");
 
 //#region  Video Backgrounds
 // Loads the video swapping elements on page load
@@ -17,9 +18,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   //Array of background video's
   const videoBackgrounds = [
-    "../Images/PokeMon imgs/starter2.mp4",
-    "../Images/PokeMon imgs/starter1.mp4",
-    "../Images/PokeMon imgs/starter3.mp4",
+    "../Images/PokeMon imgs/umbreon-under-the-moonlight.1920x1080.mp4",
+    "../Images/PokeMon imgs/pokemon-umbreon-at-night.1920x1080.mp4",
+    "../Images/PokeMon imgs/pokeball-house.1920x1080.mp4",
   ];
   //Initial index for background swapper
   let currentIndex = 0;
@@ -223,7 +224,86 @@ document.querySelector(".pokeButton").addEventListener("click", async () => {
 
 //#region Poke-Run Game
 
+//Sets the game status
+let gameStarted = false;
+
+gameStartButton.addEventListener("click", () => {
+  if (!gameStarted) {
+    startGame();
+    gameStarted = true;
+    gameStartButton.textContent = "Restart Game?";
+  } else {
+    resetGame();
+    gameStartButton.textContent = "Start Game";
+  }
+});
+
+//Starts the game
+function startGame() {
+  title.textContent = "Poké Run";
+
+  //Reset Positions
+  character.style.top = "150px";
+  block.style.left = "480px";
+
+  // Restart animation
+  block.style.animation = "block 1s infinite linear";
+  block.style.display = "block";
+
+  //Enable Collision detection
+  checkDead = setInterval(checkCollision, 10);
+}
+
+// Resets the game:
+function resetGame() {
+  character.style.top = "150px";
+  block.style.left = "480px";
+
+  // Reset the blocks animation
+  block.style.animation = "none";
+  block.offsetHeight;
+  block.style.animation = "block 1s infinite linear";
+
+  //Hide block and reset title when game starts
+  block.style.display = "none";
+  title.textContent = "Poké Run";
+
+  //Stop the collision detection
+  clearInterval(checkDead);
+  gameStarted = false; //Sets the game to inactive, like the start
+}
+
 //Jumping Function for our character
+function jump() {
+  character.classList.toggle("animate");
+}
+
+// Remove the "animate" class after the animation ends
+character.addEventListener("animationend", () => {
+  character.classList.remove("animate");
+});
+
+main.addEventListener("click", jump);
+
+// Collision detection function
+const checkCollision = () => {
+  let characterTop = parseInt(
+    window.getComputedStyle(character).getPropertyValue("top")
+  );
+  let blockLeft = parseInt(
+    window.getComputedStyle(block).getPropertyValue("left")
+  );
+  if (blockLeft < 20 && blockLeft > 0 && characterTop >= 130) {
+    block.style.animation = "none";
+    block.style.display = "none";
+    title.textContent = "Loser!";
+    clearInterval(checkDead); // Stop the game if character hits the block
+  }
+};
+//#endregion
+
+//#region  Old Game Logic
+/* //Jumping Function for our character
 function jump() {
   character.classList.toggle("animate");
 }
@@ -249,5 +329,5 @@ const checkDead = setInterval(function () {
     title.textContent = "Loser!";
   }
 }, 10);
-
+ */
 //#endregion

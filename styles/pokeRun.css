@@ -9,7 +9,7 @@
     background-attachment: fixed;
     background-size: cover;
     color: aliceblue; */
-  font-family: "Press Start 2P", cursive;
+  font-family: "Pokemon Solid", solid;
 }
 
 body,
@@ -34,42 +34,84 @@ video.background-clip {
   height: 100%;
   object-fit: cover;
   z-index: -1;
-  animation: videoLoop 6s infinite; /* Make sure the loop matches the video duration */
 }
 
 .header {
-  margin: 0; /* Remove any margin around the header */
-  padding: 10px; /* Add padding only inside the header */
+  margin: 0;
+  padding: 10px;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Black with transparency */
-  color: white;
+  background-color: #1e1e1e;
+  padding: 15px;
+  text-align: center;
+  border-radius: 15px;
+  font-family: "Press Start 2P", cursive;
+  border: 5px solid #0075be; /* Blue outer border */
+  box-shadow: 0 0 10px #ffcc00; /* Yellow glowing effect */
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
   flex-wrap: wrap;
-  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
+
+  /* text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7); */
+}
+
+.header:before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border: 3px solid #ffcc00; /* Yellow inner border */
+  border-radius: 15px; /* Match parent border-radius */
+  z-index: -1; /* Place behind the navbar */
 }
 
 .header a {
-  color: white; /* Default white color */
-  text-decoration: none; /* Remove underline */
-  transition: transform 0.5s ease; /* Smooth scaling effect */
+  text-decoration: none;
+  color: #ffcc00; /* Pokémon yellow */
+  font-size: 24px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: relative;
+  display: inline-block;
+  margin: 0 15px;
+  transition: all 0.3s ease;
+
+  /* Blue outline around the text */
+  text-shadow: 2px 2px 0 #0075be, /* Blue outline shadow */ -2px -2px 0 #0075be,
+    -2px 2px 0 #0075be, 2px -2px 0 #0075be;
 }
 
 /* Hover effect */
 .header a:hover {
-  animation: slowWhitePulse 2.5s infinite; /* Slow, powerful pulse animation */
-  transform: scale(1.1); /* Slightly scale up on hover */
+  animation: pulse 1.5s infinite alternate;
 }
 
 .title {
-  background-color: rgba(0, 0, 0, 0.5); /* Black with 50% transparency */
-  color: white; /* White text for better visibility */
-  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7); /* Adds a subtle shadow to the text */
+  /* background-color: rgba(0, 0, 0, 0.5);  */
   border-radius: 15px;
   margin-top: 20px;
   text-align: center;
   padding: 10px;
+
+  text-decoration: none;
+  color: #ffcc00; /* Pokémon yellow */
+  font-size: 30px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: relative;
+  display: inline-block;
+  margin: 0 15px;
+  transition: all 0.3s ease;
+
+  /* Blue outline around the text */
+  text-shadow: 2px 2px 0 #0075be, /* Blue outline shadow */ -2px -2px 0 #0075be,
+    -2px 2px 0 #0075be, 2px -2px 0 #0075be;
+}
+.title:hover {
+  animation: pulse 1.5s infinite alternate;
 }
 
 .gameBox {
@@ -80,26 +122,76 @@ video.background-clip {
   width: 100%;
 }
 
-.leftbox {
+.leftbox,
+.rightBox {
   display: flex;
   flex-direction: column;
   height: 100vh; /* Ensure it does not extend beyond the viewport */
-  overflow: hidden; /* Prevent overflow from affecting the page */
+  overflow: hidden;
+  /* Pokemon Colors */
+  background: #0075be; /* Pokémon blue as the main background */
+  border: 5px solid #1e1e1e; /* Darker steel gray border */
+  border-radius: 15px;
+  box-shadow: 0 0 5px 2px #ffcc00;
+  padding: 20px;
+  color: #ffcc00; /* Pokémon yellow for text */
+  font-family: "Press Start 2P", cursive;
+  text-align: center;
+  position: relative; /* Required for :before pseudo-element */
+}
+
+.leftbox:before,
+.rightBox:before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border: 3px solid #1e1e1e; /* Dark steel gray inner border */
+  border-radius: 15px; /* Match parent border-radius */
+  z-index: -1; /* Place behind the box */
+}
+
+h3 {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  color: #ffcc00; /* Pokémon yellow for headings */
+}
+
+.leftbox input,
+.rightBox a {
+  background-color: #0075be; /* Match the Pokémon blue background of the boxes */
+  border: 3px solid #1e1e1e; /* Dark steel gray border */
+  border-radius: 8px;
+  padding: 8px;
+  margin: 10px 0;
+  font-size: 0.9rem;
+  color: #ffcc00; /* Pokémon yellow text */
+  font-family: "Press Start 2P", cursive;
+  text-align: center;
+  transition: all 0.3s ease-in-out;
+}
+
+.leftbox input:hover,
+.rightBox a:hover {
+  background-color: #1e1e1e; /* Dark steel gray hover effect */
+  color: #ffcc00; /* Pokémon yellow text */
 }
 
 .spriteBox {
   display: flex;
-  flex-direction: column; /* Arrange Pokémon cards in a vertical column */
+  flex-direction: column;
   gap: 16px; /* Space between cards */
-  max-height: 100%; /* Prevent stretching beyond the parent container */
-  height: 100%; /* Take up the full height of the parent container */
+  max-height: 100%;
+  height: 100%;
   overflow-y: auto; /* Enable vertical scrolling */
-  border: 1px solid #ccc;
+  border: 1px solid #ffcc00;
   border-radius: 8px;
   padding: 16px;
-  background-color: #f8f9fa; /* Slight background tint */
+  background-color: #1e1e1e;
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
-  box-sizing: border-box; /* Include padding in height calculation */
+  box-sizing: border-box;
 }
 
 .pokemon-container {
@@ -107,7 +199,7 @@ video.background-clip {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  border: 2px solid #222;
+  border: 3px solid #1e1e1e;
   border-radius: 12px;
   padding: 16px;
   background-color: #fff; /* Card background */
@@ -117,17 +209,24 @@ video.background-clip {
 }
 
 .pokemon-name {
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 8px;
-  text-transform: capitalize;
-  color: #444;
-  background-color: #ffcb05; /* Pokémon card yellow accent */
-  border-radius: 8px;
-  padding: 4px 8px;
-  box-shadow: inset 0 -2px 4px rgba(0, 0, 0, 0.15);
+  background-color: #ffcc00; /* Pokémon yellow */
+  padding: 5px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  font-size: 15px;
+  color: #0075be; /* Pokémon blue */
+  font-family: "Press Start 2P", cursive;
 }
-
+.pokemon-card {
+  background: white;
+  border: 3px solid #ffcc00; /* Pokémon yellow */
+  border-radius: 10px;
+  text-align: center;
+  padding: 15px;
+  font-family: "Press Start 2P", cursive;
+  color: #333;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
 .pokemon-sprite {
   width: 120px;
   height: 120px;
@@ -135,27 +234,17 @@ video.background-clip {
   margin-bottom: 8px;
 }
 .pokemon-type {
-  font-size: 14px;
-  color: #555;
-  text-transform: capitalize;
-  background-color: #76b900; /* Pokémon type green accent */
-  padding: 4px 8px;
-  border-radius: 8px;
-  color: #fff;
-}
-.spriteBox img {
-  width: 100px;
-  height: 100px;
-  object-fit: contain;
-  border: 1px solid white;
+  /* background-color: #0075be;  */
+  padding: 5px;
+  margin-top: 10px;
   border-radius: 5px;
+  font-size: 1rem;
+  color: #ffcc00; /* Pokémon yellow */
 }
 
-.pokemon-name {
-  font-size: 16px;
-  font-weight: bold;
-  margin-bottom: 8px;
-  text-transform: capitalize;
+.pokemon-card img {
+  max-width: 50%;
+  height: auto;
 }
 
 .pokemon-sprite {
@@ -166,7 +255,7 @@ video.background-clip {
 }
 .pokemon-type {
   font-size: 14px;
-  color: #555;
+  color: #1e1e1e;
   text-transform: capitalize;
 }
 
@@ -174,14 +263,15 @@ video.background-clip {
   width: 100px;
   height: 100px;
   object-fit: contain;
-  border: 1px solid white;
+  border: 2px solid #0075be; /* Dark steel gray border for images */
+  background-color: #1e1e1e;
   border-radius: 5px;
 }
 
 .spriteBox label {
   font-size: 0.8em;
   text-align: center;
-  color: white;
+  color: #1e1e1e;
 }
 
 .spriteBox::-webkit-scrollbar {
@@ -197,9 +287,9 @@ video.background-clip {
   background: #555; /* Hover effect */
 }
 .main {
-  background: rgba(255, 255, 255, 0.3); /* Semi-transparent white background */
-  backdrop-filter: blur(10px); /* Blur effect to simulate the frosted glass */
-  border: 1px solid rgba(255, 255, 255, 0.5); /* Border to enhance glass effect */
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
   /* The Game's Dimmensions */
   width: 500px;
   height: 200px;
@@ -234,23 +324,33 @@ video.background-clip {
   top: 130px;
   left: 480px;
   animation: block 1s infinite linear;
+  display: none; /* Block hidden before game starts */
+  animation: none; /* No animation initially */
 }
 
-.rightBox {
-  display: flex;
-  flex-direction: column;
-  height: 100vh; /* Ensure it does not extend beyond the viewport */
-  overflow: hidden; /* Prevent overflow from affecting the page */
-  background-color: wheat;
+button {
+  background-color: #0075be; /* Pokémon blue background */
+  border: 3px solid #1e1e1e; /* Dark steel gray border */
+  border-radius: 8px; /* Rounded corners */
+  color: #ffcc00; /* Pokémon yellow text */
+  font-family: "Press Start 2P", cursive;
+  font-size: 0.9rem;
+  padding: 10px 20px; /* Adjust padding for a good button size */
+  margin: 5px; /* Space between buttons */
+  cursor: pointer;
+  transition: all 0.3s ease-in-out; /* Smooth hover transition */
 }
 
-h3 {
-  background-color: cadetblue;
+button:hover {
+  background-color: #1e1e1e; /* Dark steel gray hover effect */
+  color: #ffcc00; /* Keep Pokémon yellow text */
+  box-shadow: 0 0 8px 2px #ffcc00; /* Slight yellow glow on hover */
 }
 
-.rightBox a {
-  border: #222;
-  border: 1px solid rgba(255, 255, 255, 0.5); /* Border to enhance glass effect */
+button:active {
+  transform: scale(0.95); /* Slight click effect */
+  background-color: #ffcc00; /* Pokémon yellow when clicked */
+  color: #1e1e1e; /* Text turns dark steel */
 }
 
 .footer {
@@ -261,9 +361,14 @@ h3 {
   bottom: 0;
   /* Semi-transparent footer */
   /* box-shadow: 0 0 12px 2px rgba(0, 0, 0, 0.3); */
-  color: white;
+  color: #ffcc00; /* Pokémon yellow text */
 }
 
+.copyright {
+  font-size: xx-small;
+  text-shadow: 2px 2px 0 #0075be, /* Blue outline shadow */ -2px -2px 0 #0075be,
+    -2px 2px 0 #0075be, 2px -2px 0 #0075be;
+}
 .switch {
   height: 50px;
   width: 50px;
@@ -273,15 +378,14 @@ h3 {
   border: 4px solid hsl(200, 100%, 50%);
 }
 
-@keyframes slowWhitePulse {
-  0%,
-  100% {
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
-      0 0 20px rgba(255, 255, 255, 0.5), 0 0 30px rgba(255, 255, 255, 0.3);
+@keyframes pulse {
+  0% {
+    text-shadow: 2px 2px 0 #ffcc00, -2px -2px 0 #ffcc00, -2px 2px 0 #ffcc00,
+      2px -2px 0 #ffcc00;
   }
-  50% {
-    text-shadow: 0 0 25px rgba(255, 255, 255, 1),
-      0 0 40px rgba(255, 255, 255, 0.8), 0 0 60px rgba(255, 255, 255, 0.6);
+  100% {
+    text-shadow: 2px 2px 10px #0075be, -2px -2px 10px #0075be,
+      -2px 2px 10px #0075be, 2px -2px 10px #0075be;
   }
 }
 
