@@ -127,7 +127,8 @@ video.background-clip {
   display: flex;
   flex-direction: column;
   height: 100vh; /* Ensure it does not extend beyond the viewport */
-  overflow: hidden;
+  overflow: hidden; /*Hides content when it starts to spill out of the box */
+
   /* Pokemon Colors */
   background: #0075be; /* Pokémon blue as the main background */
   border: 5px solid #1e1e1e; /* Darker steel gray border */
@@ -154,9 +155,10 @@ video.background-clip {
 }
 
 h3 {
-  font-size: 1.2rem;
+  font-size: 0.9rem;
   margin-bottom: 15px;
   color: #ffcc00; /* Pokémon yellow for headings */
+  font-family: "Press Start 2P", cursive;
 }
 
 .leftbox input,
@@ -289,6 +291,14 @@ h3 {
 .main {
   background: rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(10px);
+  user-select: none; /*Prevents text from being copyable  */
+
+  /* Background Image settings */
+  /* background-image: url("https://static.wikia.nocookie.net/pokemon-reborn/images/5/53/Swampfield.png/revision/latest/scale-to-width-down/340?cb=20220901025655");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed; */
+  /* background-size: cover; */
 
   /* The Game's Dimmensions */
   width: 500px;
@@ -329,8 +339,32 @@ h3 {
   left: 480px; /* Initial starting position */
   width: 30px;
   height: 30px;
-  animation: block 1.1s infinite linear; /* Change Block Speed*/
+  animation: block 1.1s infinite linear, spin 1.1s infinite linear; /* Change Block Speed*/
   display: none;
+}
+
+#how2Play {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  text-align: center;
+  font-size: smaller;
+  list-style-type: none;
+  border: 1px solid #ffcc00;
+  border-radius: 18px;
+  padding: 16px;
+  background-color: #1e1e1e;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+
+  /* Blue outline around the text */
+  text-shadow: 2px 2px 0 #0075be, /* Blue outline shadow */ -2px -2px 0 #0075be,
+    -2px 2px 0 #0075be, 2px -2px 0 #0075be;
+}
+#how2Play li {
+  text-decoration-style: none;
+  font-size: x-small;
+  text-shadow: none;
 }
 
 button {
@@ -379,8 +413,9 @@ button:active {
   width: 50px;
   border-radius: 15px;
   background: transparent;
-  border-color: black;
-  border: 4px solid hsl(200, 100%, 50%);
+  /* border-color: black;
+  border: 4px solid hsl(200, 100%, 50%); */
+  animation: spin 6.1s infinite linear;
 }
 
 @keyframes pulse {
@@ -421,5 +456,14 @@ button:active {
   }
   100% {
     top: 0; /* Return to original position */
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
   }
 }

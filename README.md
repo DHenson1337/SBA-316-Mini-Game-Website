@@ -36,6 +36,8 @@ PokeManz game section:
 
 Pokemon run:
 Search function still needs to be refined for pokemon with multiple form x.x
-Fix hit detection for the Poke Run game.
-Add instructions on how to play
+Add a spinning circle (not sure what it's called) for loading on longer searches
+Decided on a background for the game.
+Increase the sprite size without messing up collision detection
+Score counter
 (Potentially some bgm)

@@ -10,6 +10,7 @@ const main = document.querySelector(".main");
 const title = document.querySelector(".title");
 const gameStartButton = document.getElementById("gameStart");
 const characterContainer = document.getElementById("character-container");
+const spriteBox = document.querySelector(".spriteBox img");
 
 //#region  Video Backgrounds
 // Loads the video swapping elements on page load
@@ -90,6 +91,12 @@ const renderFallback = () => {
   img.alt = "MissingNo.";
   spriteBox.appendChild(img);
 };
+
+//lazy loading for sprite box function
+function loadSprite(imageUrl) {
+  spriteBox.setAttribute("loading", "lazy");
+  spriteBox.src = imageUrl;
+}
 
 //renders  sorted sprites in the spriteBox
 const renderSortedSprites = async (pokeNames) => {
@@ -239,6 +246,25 @@ document.querySelector(".pokeButton").addEventListener("click", async () => {
 
 //#region Poke-Run Game
 
+//Random number between 0.5 - 11
+const spin = Math.random() * (0.6 - 0.2) + 0.2;
+
+//function for music
+let audio;
+const playMusic = () => {
+  if (!audio) {
+    audio = new Audio(`../audio/bgm/B&WLowHealthRemix.mp3`);
+    audio.loop = true;
+  }
+
+  //error check for audio
+  audio.play().catch((error) => {
+    console.error("Audio play failed", error);
+  });
+
+  return audio;
+};
+
 //Sets the game status
 let gameStarted = false;
 
@@ -257,13 +283,16 @@ gameStartButton.addEventListener("click", () => {
 function startGame() {
   title.textContent = "Poké Run";
 
+  //Play's music on game start
+  playMusic();
+
   //Reset Positions
   characterContainer.style.top = "150px";
   characterContainer.style.left = "50px";
   block.style.left = "480px";
 
   // Restart animation
-  block.style.animation = "block 1s infinite linear";
+  block.style.animation = `block 1s infinite linear,spin ${spin}s infinite linear`;
   block.style.display = "block";
 
   //Enable Collision detection
@@ -279,6 +308,12 @@ function resetGame() {
   characterContainer.style.top = "150px";
   characterContainer.style.left = "50px";
   block.style.left = "480px";
+
+  //Stop the music when the game ends
+  if (audio) {
+    audio.pause();
+    audio.currentTime = 0; //Sets the music back to the start
+  }
 
   // Reset the blocks animation
   block.style.animation = "none";
@@ -331,6 +366,12 @@ const checkCollision = () => {
     //Debugging for hit detection
     console.log("Character:", character.getBoundingClientRect());
     console.log("Block:", block.getBoundingClientRect());
+
+    //stops the audio on collision
+    if (audio) {
+      audio.pause();
+      audio.currentTime = 0; //Sets the music back to the start
+    }
 
     //Stop the block
     block.style.animation = "none";
