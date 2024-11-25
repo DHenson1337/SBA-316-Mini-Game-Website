@@ -115,8 +115,13 @@ video.background-clip {
 }
 
 #scoreKeeper {
-  color: red; /* Set a visible color */
-  font-size: 24px; /* Make the font large enough */
+  color: #1e1e1e;
+  font-size: 14px;
+  font-family: "Press Start 2P", cursive;
+
+  /* Blue outline around the text */
+  text-shadow: 2px 2px 0#ffcc00, /* Blue outline shadow */ -2px -2px 0 #ffcc00,
+    -2px 2px 0 #ffcc00, 2px -2px 0 #ffcc00;
 }
 .gameBox {
   border-color: black;
@@ -298,11 +303,11 @@ h3 {
   user-select: none; /*Prevents text from being copyable  */
 
   /* Background Image settings */
-  /* background-image: url("https://static.wikia.nocookie.net/pokemon-reborn/images/5/53/Swampfield.png/revision/latest/scale-to-width-down/340?cb=20220901025655");
-  background-repeat: no-repeat;
+  background-image: url("");
+
   background-position: center;
-  background-attachment: fixed; */
-  /* background-size: cover; */
+
+  background-size: cover;
 
   /* The Game's Dimmensions */
   width: 500px;

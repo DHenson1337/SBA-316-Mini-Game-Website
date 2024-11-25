@@ -253,6 +253,10 @@ const spin = Math.random() * (0.6 - 0.2) + 0.2;
 let score = 0;
 let timerId;
 
+//Game Background Variable
+bgImg =
+  "https://hoani.net/assets/images/posts/blog/clover-trajectory/intercept.gif";
+
 // Function to update the score every second
 function startTimer() {
   timerId = setInterval(() => {
@@ -304,6 +308,9 @@ function startGame() {
   title.textContent = "Poké Run";
   scoreKeeper.textContent = `${score}`;
 
+  //Sets the background img on game start
+  main.style.backgroundImage = `url("${bgImg}")`;
+
   //Starts the score Timer:
   startTimer();
 
@@ -333,6 +340,9 @@ function resetGame() {
   characterContainer.style.left = "50px";
   block.style.left = "480px";
 
+  //resets background to blank state
+  main.style.backgroundImage = `url("")`;
+
   //Stop the music when the game ends
   if (audio) {
     audio.pause();
@@ -340,9 +350,9 @@ function resetGame() {
   }
 
   // Stop the timer when a collision happens or when the game ends
+  scoreKeeper.textContent = `Game Reset Score: ${score}`; // Placed before the score is cleaned
   stopTimer();
   console.log("Game Reset! Final time: ", score);
-  scoreKeeper.textContent = `Game Reset Score: ${score}`;
 
   // Reset the blocks animation
   block.style.animation = "none";
@@ -403,9 +413,9 @@ const checkCollision = () => {
     }
 
     // Stop the timer when a collision happens or when the game ends
+    scoreKeeper.textContent = `Final Score ${score}`; //Placed before final score is cleaned
     stopTimer();
     console.log("Game Over! Final time:", score);
-    scoreKeeper.textContent = `Final Score ${score}`;
 
     //Stop the block
     block.style.animation = "none";
