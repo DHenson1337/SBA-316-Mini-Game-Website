@@ -114,6 +114,10 @@ video.background-clip {
   animation: pulse 1.5s infinite alternate;
 }
 
+#scoreKeeper {
+  color: red; /* Set a visible color */
+  font-size: 24px; /* Make the font large enough */
+}
 .gameBox {
   border-color: black;
   display: flex;

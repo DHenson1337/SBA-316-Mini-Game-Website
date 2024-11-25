@@ -11,6 +11,7 @@ const title = document.querySelector(".title");
 const gameStartButton = document.getElementById("gameStart");
 const characterContainer = document.getElementById("character-container");
 const spriteBox = document.querySelector(".spriteBox img");
+const scoreKeeper = document.getElementById("scoreKeeper");
 
 //#region  Video Backgrounds
 // Loads the video swapping elements on page load
@@ -248,6 +249,25 @@ document.querySelector(".pokeButton").addEventListener("click", async () => {
 
 //Random number between 0.5 - 11
 const spin = Math.random() * (0.6 - 0.2) + 0.2;
+//Score keeper variable
+let score = 0;
+let timerId;
+
+// Function to update the score every second
+function startTimer() {
+  timerId = setInterval(() => {
+    score++; // Increase the score by 1 every (x time)
+    console.log(score);
+    scoreKeeper.textContent = score;
+  }, 1000);
+}
+
+//function to stop the timer
+function stopTimer() {
+  clearInterval(timerId); // Stop the timer using the interval ID
+  console.log("Timer stopped at:", score);
+  score = 0;
+}
 
 //function for music
 let audio;
@@ -282,6 +302,10 @@ gameStartButton.addEventListener("click", () => {
 //Starts the game
 function startGame() {
   title.textContent = "Poké Run";
+  scoreKeeper.textContent = `${score}`;
+
+  //Starts the score Timer:
+  startTimer();
 
   //Play's music on game start
   playMusic();
@@ -314,6 +338,11 @@ function resetGame() {
     audio.pause();
     audio.currentTime = 0; //Sets the music back to the start
   }
+
+  // Stop the timer when a collision happens or when the game ends
+  stopTimer();
+  console.log("Game Reset! Final time: ", score);
+  scoreKeeper.textContent = `Game Reset Score: ${score}`;
 
   // Reset the blocks animation
   block.style.animation = "none";
@@ -372,6 +401,11 @@ const checkCollision = () => {
       audio.pause();
       audio.currentTime = 0; //Sets the music back to the start
     }
+
+    // Stop the timer when a collision happens or when the game ends
+    stopTimer();
+    console.log("Game Over! Final time:", score);
+    scoreKeeper.textContent = `Final Score ${score}`;
 
     //Stop the block
     block.style.animation = "none";
