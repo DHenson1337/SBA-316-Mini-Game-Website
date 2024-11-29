@@ -39,15 +39,26 @@
       </div>
 
       <div class="gameBox">
+        <!-- Left Box aka Pokemon Center -->
         <div class="leftbox">
           <h3>Pokémon Center PC</h3>
+          <!-- Pokemon Name Input -->
           <input
             type="text"
             class="pokeName"
             placeholder="Pokémon Name or ID"
           />
+          <!-- Pokemon Type Input -->
           <input type="text" class="pokeType" placeholder="Pokémon type" />
-          <input type="number" class="pokeGen" placeholder="Pokémon Gen" />
+          <!-- Pokemon Generation Input -->
+          <input
+            type="number"
+            class="pokeGen"
+            placeholder="Pokémon Gen"
+            min="1"
+            max="9"
+          />
+          <!-- Box where images are rendered -->
           <button class="pokeButton">Who's That Pokémon</button>
           <div class="spriteBox">
             <img src="" alt="Pokemon Img" class="sbSprite" loading="lazy" />
@@ -55,6 +66,7 @@
             <label for="" class="sbType">Pokemon Type</label>
           </div>
         </div>
+        <!-- Video Game Section -->
         <div id="hud">
           <div class="title">Poké Run</div>
           <label id="scoreKeeper"></label>
@@ -70,6 +82,7 @@
           </div>
           <button id="gameStart">Start Game</button>
         </div>
+        <!-- Right Box -->
         <div class="rightBox">
           <h3>More Games</h3>
           <a href="#"> Poké Run</a>
@@ -85,6 +98,7 @@
           <div class="optionBox"></div>
         </div>
       </div>
+      <!-- Footer Section -->
       <div class="footer">
         <p class="copyright">
           <span>&#169;</span> 2024-20XX Studio: D.Henson All rights reserved.

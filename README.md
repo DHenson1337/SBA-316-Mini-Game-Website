@@ -2,7 +2,7 @@ SBA-316-Mini-Game-Website 🎮
 Welcome to SBA-316-Mini-Game-Website!
 This project is a collection of interactive mini-games built with HTML, CSS, JavaScript, and Express.
 
-🚀 Live Demo: http://localhost:3000/
+🚀 Live Demo: http://localhost:3000/ (Actual Url Coming Soon)
 🛠 To get started:
 
 Navigate to the server directory
@@ -22,7 +22,7 @@ PokeManz is a nostalgic throwback featuring iconic Pokémon characters — but w
 3. Game Pending... ⏳
    Coming soon! Keep an eye out for this one, as more games are on the horizon.
 
-4. Newsletter (Coming Soon) ✉️
+4. Newsletter ✉️
    This section is my attempt at form validation (spoiler: it's not about me needing validation... but I wouldn't say no to a little praise 😊). This feature is part of my project requirements, but hey, if you want to give me some positive feedback, feel free to! 💌
 
 5. Trivia Express! 🧠
@@ -32,11 +32,13 @@ PokeManz is a nostalgic throwback featuring iconic Pokémon characters — but w
 PunI-shment Mountain:
 Add asynchronous typing effects for a more immersive experience. (Tried this before... but didn't quite nail it. Next time, for sure! 😅)
 Expand the storyline with more branching paths and choices.
+
 PokeManz:
 Refine the search function for Pokémon with multiple forms (because sometimes they're more than one form, right?).
 Add a loading spinner to indicate search status (still working on the perfect loading indicator).
 Improve sprite scaling and collision detection.
 Mobile-friendly adjustments for various screen sizes.
+
 Future Updates 🔮
 ReactJS integration! I plan to refactor the entire project to make it compatible with React, so expect a fresh new look and smoother performance.
 🛠 Technologies Used:
@@ -46,6 +48,7 @@ JavaScript
 Express
 EJS (for dynamic views)
 Pokémon API (for PokeManz)
+
 Contribute 📝
 If you have suggestions or want to add more games, features, or improvements, feel free to open an issue or submit a pull request. Contributions are welcome! 🚀
 
