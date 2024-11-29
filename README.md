@@ -1,44 +1,52 @@
-# SBA-316-Mini-Game-Website
+SBA-316-Mini-Game-Website 🎮
+Welcome to SBA-316-Mini-Game-Website!
+This project is a collection of interactive mini-games built with HTML, CSS, JavaScript, and Express.
 
-(To start the server, go to the server dir, in the console type nodemon server.js!)
-HI!
+🚀 Live Demo: http://localhost:3000/
+🛠 To get started:
 
-This repo contains my attempt at making my first set of interactive MiniGames
-utilizing HTML, CSS and Javascript and now Express!
+Navigate to the server directory
+Run nodemon server.js in the console to start the server
+Games 🎮
 
-It features games such as
+1. PunI-shment Mountain ⛰️
+   Climb the mountain, survive the puns!
 
-1. PunI-shment mountain:
-   A text based adventure with lots of puns and a hint of cringe, sure to bring smiles to all
-   pun lovers and secret pun lovers. (You know who you are :P)
+A text-based adventure game that's packed with puns, cringey humor, and some unexpected twists. Whether you're a pun enthusiast or just someone who loves to groan at bad wordplay, this game will surely put a smile on your face. (Don't worry, you know who you are... secret pun lovers 😉)
 
-2. PokeManz: A list of familiar games, but with chooseable sprites provided by the Pokemon API
+2. PokeManz 🐾
+   Catch 'em all, but with a twist!
 
-3. Game Pending:
+PokeManz is a nostalgic throwback featuring iconic Pokémon characters — but with customizable sprites pulled straight from the Pokémon API! Select your favorite Pokémon, play a variety of mini-games, and relive those childhood memories.
 
-4. News Letter(Pending):
-   This is my attempt at creating Validation. . .
-   No its not that I need validation. Am happy about myself...On most days......at least 1/2 the time.
-   Enough about that!
-   This was simply a requirment for my project!
-   But if you want to give me positive Validation I wouldn't be opposed~
+3. Game Pending... ⏳
+   Coming soon! Keep an eye out for this one, as more games are on the horizon.
 
-   5. Trivia Express!
-      A trivia game thats run on an
-      ejs engine view using express to run a mini Trivia Game/Blog site!
+4. Newsletter (Coming Soon) ✉️
+   This section is my attempt at form validation (spoiler: it's not about me needing validation... but I wouldn't say no to a little praise 😊). This feature is part of my project requirements, but hey, if you want to give me some positive feedback, feel free to! 💌
 
-Future Updates:
+5. Trivia Express! 🧠
+   Test your knowledge in this trivia game, powered by Express and rendered with the EJS engine. Play a quick round or browse through trivia topics in a simple, yet fun blog-like interface. Who said learning can't be fun?
 
-(Make everything comptiable with ReactJS when we start using it)
+🚧 Upcoming Features 🚧
+PunI-shment Mountain:
+Add asynchronous typing effects for a more immersive experience. (Tried this before... but didn't quite nail it. Next time, for sure! 😅)
+Expand the storyline with more branching paths and choices.
+PokeManz:
+Refine the search function for Pokémon with multiple forms (because sometimes they're more than one form, right?).
+Add a loading spinner to indicate search status (still working on the perfect loading indicator).
+Improve sprite scaling and collision detection.
+Mobile-friendly adjustments for various screen sizes.
+Future Updates 🔮
+ReactJS integration! I plan to refactor the entire project to make it compatible with React, so expect a fresh new look and smoother performance.
+🛠 Technologies Used:
+HTML
+CSS
+JavaScript
+Express
+EJS (for dynamic views)
+Pokémon API (for PokeManz)
+Contribute 📝
+If you have suggestions or want to add more games, features, or improvements, feel free to open an issue or submit a pull request. Contributions are welcome! 🚀
 
-PunIshment Mountain:
-Need to add asycronous effect for a type writter. (Tried b4 but failed >.<>)
-PunIshment mountain - Need to add actual story
-
-PokeManz game section:
-
-Pokemon run:
-Search function still needs to be refined for pokemon with multiple form x.x
-Add a spinning circle (not sure what it's called) for loading on longer searches
-Increase the sprite size without messing up collision detection
-(Add suppport for different sized screens)
+Thanks for checking out the SBA-316-Mini-Game-Website! Have fun playing, and don't forget to leave a pun or two in the comments. 😉
