@@ -15,7 +15,7 @@ router.post(`/`, async (req, res) => {
       `https://opentdb.com/api.php?amount=${amount}&category=${category}&difficulty=${difficulty}`
     );
     const questions = response.data.results;
-    res.render(`trivia`, { questions });
+    res.render(`triviaGame`, { questions });
   } catch (error) {
     console.error(
       "The real question is, why did we fail to get the trivia questions?",

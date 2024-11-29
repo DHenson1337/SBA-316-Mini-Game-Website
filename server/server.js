@@ -18,14 +18,14 @@ app.use(express.static(path.join(__dirname, "../public"))); // Middleware for se
 app.use(express.urlencoded({ extended: true }));
 
 //triviaHome Route (Route 1) Static Route
-app.get("/trivia-Home", (req, res) => {
+app.get("/triviaHome", (req, res) => {
   const filePath = path.join(__dirname, "views", "triviaHome.ejs");
   console.log(`Attempting to render file: ${filePath}`);
   res.render("triviaHome");
 });
 
 // triviaGame Route (Route 2)
-app.use(`/triviaGame`, triviaGame);
+app.use("/triviaGame", triviaGame);
 
 // Dynamic route to get HTML pages under the public folder (Will probably become obsolete once we start React)
 app.get(`/pages/:pageName`, (req, res) => {

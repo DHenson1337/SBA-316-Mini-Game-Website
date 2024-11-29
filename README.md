@@ -12,21 +12,21 @@ Games 🎮
 1. PunI-shment Mountain ⛰️
    Climb the mountain, survive the puns!
 
-A text-based adventure game that's packed with puns, cringey humor, and some unexpected twists. Whether you're a pun enthusiast or just someone who loves to groan at bad wordplay, this game will surely put a smile on your face. (Don't worry, you know who you are... secret pun lovers 😉)
+   A text-based adventure game that's packed with puns, cringey humor, and some unexpected twists. Whether you're a pun enthusiast or just someone who loves to groan at bad wordplay, this game will surely put a smile on your face. (Don't worry, you know who you are... secret pun lovers 😉)
 
 2. PokeManz 🐾
    Catch 'em all, but with a twist!
 
-PokeManz is a nostalgic throwback featuring iconic Pokémon characters — but with customizable sprites pulled straight from the Pokémon API! Select your favorite Pokémon, play a variety of mini-games, and relive those childhood memories.
+   PokeManz is a nostalgic throwback featuring iconic Pokémon characters — but with customizable sprites pulled straight from the Pokémon API! Select your favorite Pokémon, play a variety of mini-games, and relive those childhood memories.
 
-3. Game Pending... ⏳
-   Coming soon! Keep an eye out for this one, as more games are on the horizon.
+3. Trivia Express! 🧠 🚅
+   Test your knowledge in this trivia game, powered by Express and rendered with the EJS engine. Play a quick round or browse through trivia topics in a simple, yet fun blog-like interface. Who said learning can't be fun?
 
 4. Newsletter ✉️
    This section is my attempt at form validation (spoiler: it's not about me needing validation... but I wouldn't say no to a little praise 😊). This feature is part of my project requirements, but hey, if you want to give me some positive feedback, feel free to! 💌
 
-5. Trivia Express! 🧠
-   Test your knowledge in this trivia game, powered by Express and rendered with the EJS engine. Play a quick round or browse through trivia topics in a simple, yet fun blog-like interface. Who said learning can't be fun?
+5. Game Pending... ⏳
+   Coming soon! Keep an eye out for this one, as more games are on the horizon.
 
 🚧 Upcoming Features 🚧
 PunI-shment Mountain:

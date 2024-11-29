@@ -38,15 +38,17 @@ video.background-clip {
 
 .header {
   margin: 0; /* Remove any margin around the header */
-  padding: 10px; /* Add padding only inside the header */
+  padding: 0.5px; /* Add padding only inside the header */
   width: 100%;
   background-color: rgba(0, 0, 0, 0.5); /* Black with transparency */
-  color: white;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
   flex-wrap: wrap;
+  font-size: xx-small;
   text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
+
+  border: 0.9px solid;
 }
 
 .header a {
@@ -210,8 +212,8 @@ video.background-clip {
   font-weight: bold;
 }
 .switch {
-  height: 50px;
-  width: 50px;
+  height: 40px;
+  width: 40px;
   border-radius: 15px;
   background: transparent;
   border-color: black;
