@@ -1,9 +1,10 @@
 # SBA-316-Mini-Game-Website
 
+(To start the server, go to the server dir, in the console type nodemon server.js!)
 HI!
 
 This repo contains my attempt at making my first set of interactive MiniGames
-utilizing HTML, CSS and Javascript
+utilizing HTML, CSS and Javascript and now Express!
 
 It features games such as
 
@@ -22,11 +23,13 @@ It features games such as
    This was simply a requirment for my project!
    But if you want to give me positive Validation I wouldn't be opposed~
 
-   5. A Spooky toogle switch. (Pending)
-      Something Spoooooky, will happen if clicked, or not
-      depends on how much i've really understand Javascript up to this point heh.
+   5. Trivia Express!
+      A trivia game thats run on an
+      ejs engine view using express to run a mini Trivia Game/Blog site!
 
 Future Updates:
+
+(Make everything comptiable with ReactJS when we start using it)
 
 PunIshment Mountain:
 Need to add asycronous effect for a type writter. (Tried b4 but failed >.<>)
@@ -37,7 +40,5 @@ PokeManz game section:
 Pokemon run:
 Search function still needs to be refined for pokemon with multiple form x.x
 Add a spinning circle (not sure what it's called) for loading on longer searches
-Decided on a background for the game.
 Increase the sprite size without messing up collision detection
-Score counter
-(Potentially some bgm)
+(Add suppport for different sized screens)

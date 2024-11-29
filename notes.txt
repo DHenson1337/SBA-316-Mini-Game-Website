@@ -1,0 +1,45 @@
+Future Folder Structure for Mongo DB implementation and then React JS
+
+server/
+  models/    # MongoDB schemas (e.g., user, post, etc.)
+  routes/    # Express routes (e.g., apiRoutes.js)
+  controllers/ # Logic for handling routes (optional, for larger projects)
+  config/    # MongoDB and environment configurations
+  server.js  # Main entry point for Express
+
+========================When react gets implemented ====================
+ client/                  # React Frontend
+  public/                # Static assets for React
+    audio/
+    images/
+    styles/
+    video/
+  src/                   # React components and logic
+    components/
+    styles/
+    utils/
+    App.js
+    index.js
+  .env
+  package.json           # React dependencies
+
+server/                  # Express Backend
+  models/                # MongoDB schemas
+  routes/                # API routes
+  controllers/           # Route logic (optional for larger projects)
+  server.js              # Express entry point
+  .env                   # Backend environment variables
+
+public/                  # Static files served by Express (fallbacks)
+  audio/
+  images/
+  styles/
+  video/
+README.md
+
+
+
+For now, your scripts/ folder should stay under public/ 
+because it serves static, client-side JavaScript.
+ If React takes over, you can phase out public/scripts and
+  integrate the functionality into React components in client/src.

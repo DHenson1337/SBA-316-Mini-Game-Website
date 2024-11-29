@@ -335,6 +335,15 @@ h3 {
   object-fit: contain; /* Preserve the aspect ratio */
   position: relative;
   display: none;
+  transition: transform 1s ease;
+}
+
+.shrink {
+  transform: scale(0.1);
+}
+
+.grow {
+  transform: scale(0.7);
 }
 
 /* The class for adding Jump */

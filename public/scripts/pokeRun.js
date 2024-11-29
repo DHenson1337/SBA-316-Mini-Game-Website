@@ -13,6 +13,80 @@ const characterContainer = document.getElementById("character-container");
 const spriteBox = document.querySelector(".spriteBox img");
 const scoreKeeper = document.getElementById("scoreKeeper");
 
+//#region  Pokemon form names
+// Thank you Nicholas for this list
+const nameConversion = {
+  "Nidoran-f": "Nidoran ♀",
+  "Nidoran-m": "Nidoran ♂",
+  "Mr-mime": "Mr. Mime",
+  "Deoxys-normal": "Deoxys",
+  "Wormadam-plant": "Wormadam",
+  "Mime-jr": "Mime Jr.",
+  "Porygon-z": "Porygon-Z",
+  "Giratina-altered": "Giratina",
+  "Shaymin-land": "Shaymin",
+  "Basculin-red-striped": "Basculin",
+  "Darmanitan-standard": "Darmanitan",
+  "Tornadus-incarnate": "Tornadus",
+  "Thundurus-incarnate": "Thundurus",
+  "Landorus-incarnate": "Landorus",
+  "Keldeo-ordinary": "Keldeo",
+  "Meloetta-aria": "Meloetta",
+  "Meowstic-male": "Meowstic",
+  "Aegislash-shield": "Aegislash",
+  "Pumpkaboo-average": "Pumpkaboo",
+  "Gourgeist-average": "Gourgeist",
+  "Zygarde-50": "Zygarde",
+  "Oricorio-baile": "Oricorio",
+  "Lycanroc-midday": "Lycanroc",
+  "Wishiwashi-solo": "Wishiwashi",
+  "Minior-red-meteor": "Minior",
+  "Mimikyu-disguised": "Mimikyu",
+  mimikyu: "mimikyu-disguised",
+  "Tapu-koko": "Tapu Koko",
+  "Tapu-lele": "Tapu Lele",
+  "Tapu-bulu": "Tapu Bulu",
+  "Tapu-fini": "Tapu Fini",
+  "Toxtricity-amped": "Toxtricity",
+  "Mr-rime": "Mr. Rime",
+  "Eiscue-ice": "Eiscue",
+  "Indeedee-male": "Indeedee",
+  "Morpeko-full-belly": "Morpeko",
+  "Urshifu-single-strike": "Urshifu",
+  "Basculegion-male": "Basculegion",
+  "Enamorus-incarnate": "Enamorus",
+  "Great-tusk": "Great Tusk",
+  "Scream-tail": "Scream Tail",
+  "Brute-bonnet": "Brute Bonnet",
+  "Flutter-mane": "Flutter Mane",
+  "Slither-wing": "Slither Wing",
+  "Sandy-shocks": "Sandy Shocks",
+  "Iron-treads": "Iron Treads",
+  "Iron-bundle": "Iron Bundle",
+  "Iron-hands": "Iron Hands",
+  "Iron-jugulis": "Iron Jugulis",
+  "Iron-moth": "Iron Moth",
+  "Iron-thorns": "Iron Thorns",
+  "Wo-chien": "Wo-Chien",
+  "Chien-pao": "Chien-Pao",
+  "Ting-lu": "Ting-Lu",
+  "Chi-yu": "Chi-Yu",
+  "Roaring-moon": "Roaring Moon",
+  "Iron-valiant": "Iron Valiant",
+  "Walking-wake": "Walking Wake",
+  "Iron-leaves": "Iron Leaves",
+  "Gouging-fire": "Gouging Fire",
+  "Raging-bolt": "Raging Bolt",
+  "Iron-boulder": "Iron Boulder",
+  "Iron-crown": "Iron Crown",
+};
+
+// Converts user input to canonical name
+const getCanonicalName = (inputName) => {
+  const lowerCaseName = inputName.toLowerCase();
+  return nameConversion[lowerCaseName] || lowerCaseName;
+};
+//#endregion
 //#region  Video Backgrounds
 // Loads the video swapping elements on page load
 document.addEventListener("DOMContentLoaded", () => {
@@ -45,8 +119,10 @@ document.addEventListener("DOMContentLoaded", () => {
 //Get Pokemon by name
 const fetchPokemonByName = async (pokeName) => {
   try {
-    const response = await fetch(`${API_URL}${pokeName.toLowerCase()}`);
-    if (!response.ok) throw new Error("Pokémon not found!");
+    // Convert the input name using the mapping
+    const canonicalName = getCanonicalName(pokeName);
+    const response = await fetch(`${API_URL}${canonicalName}`);
+    if (!response.ok) throw new Error("Pokémon now belongs to team Rocket! ");
     return await response.json();
   } catch (error) {
     console.error(error.message);
@@ -163,23 +239,17 @@ const fetchPokemonDetails = async (pokeNames) => {
     try {
       const pokemon = await fetchPokemonByName(name);
       if (pokemon) {
-        const sprite =
-          pokemon.name === "mimikyu"
-            ? pokemon.sprites.front_default // Use the disguised form
-            : isShiny()
-            ? pokemon.sprites.front_shiny
-            : pokemon.sprites.front_default;
+        const sprite = isShiny()
+          ? pokemon.sprites.front_shiny
+          : pokemon.sprites.front_default;
 
-        const backSprite =
-          pokemon.name === "mimikyu"
-            ? pokemon.sprites.back_default
-            : isShiny()
-            ? pokemon.sprites.back_shiny
-            : pokemon.sprites.back_default;
+        const backSprite = isShiny()
+          ? pokemon.sprites.back_shiny
+          : pokemon.sprites.back_default;
 
         sortedPokemon.push({
           id: pokemon.id,
-          name: pokemon.name.replace(/-.*$/, ""), // Removes anything after a "-"
+          name: pokemon.name,
           types: pokemon.types.map((type) => type.type.name),
           sprite: sprite,
           backSprite: backSprite,
@@ -207,6 +277,7 @@ document.querySelector(".pokeButton").addEventListener("click", async () => {
 
   // Fetch by name
   if (nameInput) {
+    const canonicalName = getCanonicalName(nameInput); //convers the name input to CanonicalName
     const pokemon = await fetchPokemonByName(nameInput);
     if (pokemon) {
       pokemonNames.push(pokemon.name);
@@ -302,6 +373,16 @@ gameStartButton.addEventListener("click", () => {
     gameStartButton.textContent = "Start Game";
   }
 });
+// const originalCharacter.src = character.src;
+// Reset function to revert to the original character sprite
+function resetCharacter() {
+  // Reset the character image to the original
+  character.src = originalCharacter.src; // Set it back to the original sprite
+
+  // Remove transformations
+  character.classList.remove("shrink", "grow");
+  character.style.transform = "scale(1)";
+}
 
 //Starts the game
 function startGame() {
@@ -425,6 +506,17 @@ const checkCollision = () => {
 
     //Stops checking for collision
     clearInterval(checkCollisionInterval);
+
+    //Shrinks Character on Collison: (PokeBall Style)
+    //Come back and work on this when free
+    /* character.classList.add("shrink");
+
+    setTimeout(() => {
+      character.src = "../Images/PokeMon imgs/cleanPokeBall.png";
+
+      character.classList.remove("shrink");
+      character.classList.add("grow");
+    }, 1000); */
 
     //Reset Game Status
 
