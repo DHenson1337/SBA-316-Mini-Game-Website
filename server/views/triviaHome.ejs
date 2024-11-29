@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trivia HomePage</title>
+  </head>
+  <body>
+    <div id="container">
+      <!-- Quiz Form -->
+      <form action="/trivaGame" method="POST">
+        <!-- Parameter for Questions# -->
+        <label for="amount">Number of Questions:</label>
+        <input type="number" id="amount" name="amount" min="1" required />
+        <!-- Categories -->
+        <select name="category" id="category">
+          <option value="9">General Knowledge</option>
+          <option value="27">Animals</option>
+          <option value="32">Cartoons & Animations</option>
+          <option value="29">Comics</option>
+          <option value="31">Japanese: Anime and Manga</option>
+          <option value="20">Mythology</option>
+          <option value="15">Video Games</option>
+        </select>
+        <!-- Difficulty -->
+        <select name="difficulty" id="difficulty">
+          <option value="easy">Over-Easy</option>
+          <option value="medium">Medium-SideUp</option>
+          <option value="hard">Hard-Boiled</option>
+        </select>
+        <!-- Button to submit form -->
+        <button>Start Game!</button>
+      </form>
+    </div>
+  </body>
+</html>
