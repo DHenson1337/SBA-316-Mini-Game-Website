@@ -21,3 +21,11 @@ categoryDropdown.addEventListener(`change`, (e) => {
   //Removes hidden class to show the card
   popupCard.classList.remove(`hidden`);
 });
+
+// Close the card when clicking outside of it
+/* document.addEventListener("click", (e) => {
+  if (!popupCard.contains(e.target) && e.target.id !== "category") {
+    popupCard.classList.add("hidden");
+  }
+});
+ */

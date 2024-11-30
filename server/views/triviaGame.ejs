@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trivia Express road to Heck!</title>
+    <link rel="stylesheet" href="../../styles/triviaGame.css" />
+    <script defer src="../../scripts/triviaGameLogic.js"></script>
+  </head>
+  <body>
+    <div id="quiz-container">
+      <% if (questions && questions.length > 0) { %> <% questions.forEach((q,
+      index) => { %>
+      <div class="question-block" id="question-<%= index %>">
+        <h2>Question <%= index + 1 %>: <%= q.question %></h2>
+        <div class="options">
+          <% const allAnswers = [...q.incorrect_answers,
+          q.correct_answer].sort(() => Math.random() - 0.5);
+          allAnswers.forEach(answer => { %>
+          <button
+            class="answer-option"
+            data-correct="<%= answer === q.correct_answer %>"
+          >
+            <%= answer %>
+          </button>
+          <% }); %>
+        </div>
+      </div>
+      <% }); %> <% } else { %>
+      <p>No questions available. Try again with different settings!</p>
+      <% } %>
+    </div>
+  </body>
+</html>

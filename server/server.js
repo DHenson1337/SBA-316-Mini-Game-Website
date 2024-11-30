@@ -17,6 +17,21 @@ app.set("views", path.join(__dirname, "views")); //Setting up views folder
 app.use(express.static(path.join(__dirname, "../public"))); // Middleware for serving static files
 app.use(express.urlencoded({ extended: true }));
 
+const logRequestData = (req, res, next) => {
+  console.log(
+    `${req.method} request made to ${req.url} at ${new Date().toISOString()}`
+  );
+  next(); // Call next() to pass control to the next middleware/route handler
+};
+
+// Use the logging middleware globally for all routes
+app.use(logRequestData);
+
+//What this Middleware does is
+//1) : This function logs the HTTP request method (req.method), the request URL (req.url), and the current timestamp.
+//2) app.use(logRequestData): This middleware is applied to every request that the server handles. You can add it globally or on specific routes.
+//3) The next() function is important—it tells Express to pass the request to the next middleware or route handler.
+
 //triviaHome Route (Route 1) Static Route
 app.get("/triviaHome", (req, res) => {
   const filePath = path.join(__dirname, "views", "triviaHome.ejs");
@@ -75,3 +90,14 @@ fs.access(triviaHomePath, fs.constants.R_OK, (err) => {
 /* I can't believe I spent so many hours wondering why my ejs view wouldn't load
 and the issue was that 'ejs' wasn't a string in my code.
 Haha......am going to eat breakfeast now. */
+
+/* Syntax that am still confused on
+Use <% %> for logic (like loops, conditionals, or variable declarations).
+Use <%= %> for outputting dynamic content to the HTML.
+Use <%- %> for raw HTML that doesn’t need escaping.
+Use <%# %> for comments. 
+
+*/
+
+//Probably shouldn't use this section for notes as well but...I told you to ignore it!
+//Why are you reading it, there is no content here Sho Sho.
