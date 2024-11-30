@@ -15,7 +15,8 @@ app.set("views", path.join(__dirname, "views")); //Setting up views folder
 
 // Middleware
 app.use(express.static(path.join(__dirname, "../public"))); // Middleware for serving static files
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true })); // For form data
+app.use(express.json()); // Middleware to parse JSON request bodies
 
 const logRequestData = (req, res, next) => {
   console.log(
@@ -96,6 +97,17 @@ Use <% %> for logic (like loops, conditionals, or variable declarations).
 Use <%= %> for outputting dynamic content to the HTML.
 Use <%- %> for raw HTML that doesn’t need escaping.
 Use <%# %> for comments. 
+*/
+
+/* How I can test my custom routes in postman
+For set PostMan Body to raw.
+Then at the end set the Body to JSON (It's after binary, GraphQL its kinda hiddem) /rant >.> I blame ultrawide monitor, it was pretty annoying wondering why it wasn't working /end rant)
+
+GET: http://localhost:3000/triviaGame/custom
+POST: http://localhost:3000/triviaGame/custom
+PATCH: http://localhost:3000/triviaGame/custom/:index
+DELETE: 	http://localhost:3000/triviaGame/custom/:index
+
 
 */
 

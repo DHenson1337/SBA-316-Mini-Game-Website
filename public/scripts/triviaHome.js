@@ -1,3 +1,5 @@
+//For Managing the Pop up cards in the Trivia Quiz Game
+
 const categoryDropdown = document.getElementById(`category`);
 const popupCard = document.getElementById("popup-card");
 const popupTitle = document.getElementById("popup-title");

@@ -1,3 +1,8 @@
+/*GET: http://localhost:3000/triviaGame/custom
+ POST: http://localhost:3000/triviaGame/custom
+PATCH: http://localhost:3000/triviaGame/custom/0 (for index 0)
+DELETE: http://localhost:3000/triviaGame/custom/0 (for index 0) */
+
 const express = require(`express`);
 const router = express.Router();
 const axios = require(`axios`); //Axios access
@@ -43,12 +48,22 @@ router.post("/", async (req, res) => {
       .send("Sorry, unable to fetch trivia questions. Please try again.");
   }
 });
+//====================GET, POST, PATCH, DELETE routes for custom questions========================
+
+// Route to get all custom questions (GET)
+router.get("/custom", (req, res) => {
+  const customQuestions = getAllCustomQuestions(); // Get all custom questions
+  res.status(200).json(customQuestions); // Return custom questions as JSON
+});
+
 // Custom Post Route (POST)
+// triviaGame.js
 router.post("/custom", (req, res) => {
   const { question, correct_answer, incorrect_answers } = req.body;
 
   if (question && correct_answer && incorrect_answers) {
-    customQuestions.addCustomQuestion({
+    // You should use the imported addCustomQuestion function
+    addCustomQuestion({
       question,
       correct_answer,
       incorrect_answers,
@@ -67,8 +82,12 @@ router.patch("/custom/:index", (req, res) => {
   const index = parseInt(req.params.index);
   const { question, correct_answer, incorrect_answers } = req.body;
 
+  if (Number.isNaN(index)) {
+    return res.status(400).json({ message: "Invalid index." });
+  }
+
   if (index >= 0 && question && correct_answer && incorrect_answers) {
-    customQuestions.updateCustomQuestion(index, {
+    updateCustomQuestion(index, {
       question,
       correct_answer,
       incorrect_answers,
@@ -83,8 +102,12 @@ router.patch("/custom/:index", (req, res) => {
 router.delete("/custom/:index", (req, res) => {
   const index = parseInt(req.params.index);
 
+  if (Number.isNaN(index)) {
+    return res.status(400).json({ message: "Invalid index." });
+  }
+
   if (index >= 0) {
-    customQuestions.deleteCustomQuestion(index);
+    deleteCustomQuestion(index);
     res.status(200).json({ message: "Custom question deleted!" });
   } else {
     res.status(400).json({ message: "Invalid index." });

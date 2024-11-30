@@ -22,6 +22,17 @@ Games 🎮
 3. Trivia Express! 🧠 🚅
    Test your knowledge in this trivia game, powered by Express and rendered with the EJS engine. Play a quick round or browse through trivia topics in a simple, yet fun blog-like interface. Who said learning can't be fun?
 
+3.A This is the current SBA so the read me will contain more details:
+The game can be found on http://localhost:3000/triviaHome
+
+GET: http://localhost:3000/triviaGame/custom
+POST: http://localhost:3000/triviaGame/custom
+PATCH: http://localhost:3000/triviaGame/custom/0 (for index 0)
+DELETE: http://localhost:3000/triviaGame/custom/0 (for index 0)
+
+3.B My custom middleware (const logRequestData )
+Has been very helpful for tracking each request as well as confirming my routes are correct
+
 4. Newsletter ✉️
    This section is my attempt at form validation (spoiler: it's not about me needing validation... but I wouldn't say no to a little praise 😊). This feature is part of my project requirements, but hey, if you want to give me some positive feedback, feel free to! 💌
 
