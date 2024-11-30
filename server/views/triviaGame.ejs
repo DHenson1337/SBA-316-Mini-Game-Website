@@ -9,13 +9,15 @@
   </head>
   <body>
     <div id="quiz-container">
-      <% if (questions && questions.length > 0) { %> <% questions.forEach((q,
-      index) => { %>
+      <!-- API Questions Block -->
+      <% if (questions && questions.length > 0) { %>
+      <h2>API Questions</h2>
+      <% questions.forEach((q, index) => { %>
       <div class="question-block" id="question-<%= index %>">
         <h2>Question <%= index + 1 %>: <%= q.question %></h2>
         <div class="options">
           <% const allAnswers = [...q.incorrect_answers,
-          q.correct_answer].sort(() => Math.random() - 0.5);
+          q.correct_answer].sort(() => Math.random() - 0.5); %> <%
           allAnswers.forEach(answer => { %>
           <button
             class="answer-option"
@@ -27,7 +29,30 @@
         </div>
       </div>
       <% }); %> <% } else { %>
-      <p>No questions available. Try again with different settings!</p>
+      <p>No API questions available. Try again with different settings!</p>
+      <% } %>
+
+      <!-- Custom Questions Block -->
+      <% if (customQuestions && customQuestions.length > 0) { %>
+      <h2>Custom Questions</h2>
+      <% customQuestions.forEach((q, index) => { %>
+      <div class="question-block" id="custom-question-<%= index %>">
+        <h2>Question <%= index + 1 %>: <%= q.question %></h2>
+        <div class="options">
+          <% const allAnswers = [...q.incorrect_answers,
+          q.correct_answer].sort(() => Math.random() - 0.5); %> <%
+          allAnswers.forEach(answer => { %>
+          <button
+            class="answer-option"
+            data-correct="<%= answer === q.correct_answer %>"
+          >
+            <%= answer %>
+          </button>
+          <% }); %>
+        </div>
+      </div>
+      <% }); %> <% } else { %>
+      <p>No custom questions available. Add your own!</p>
       <% } %>
     </div>
   </body>
