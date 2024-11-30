@@ -4,33 +4,144 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Trivia HomePage</title>
+    <link rel="stylesheet" href="../../styles/triviaHome.css" />
+    <script defer src="../../scripts/triviaHome.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div id="container">
+      <!-- Video for Background -->
+      <video autoplay loop muted playsinline class="background-clip">
+        <source src="../Images/backGrounds/stockNL1.webm" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+      <!-- NavBar Section -->
+      <div class="header">
+        <a href="../index.html" class="navigation"
+          >P.Mountain<img src="../Images/Icons/mont-blanc.png" alt="" width="32"
+          height="32"</a
+        >
+        <a href="../pages/pokeRun.html" class="navigation"
+          >Pokémanz<img src="../Images/Icons/pokemon-go.png" width="32"
+          height="32" alt=""</a
+        >
+        <a href="http://localhost:3000/triviaHome" class="navigation"
+          >T.Express<img src="../Images/Icons/rail.png" alt="" width="32"
+          height="32"</a
+        >
+        <a href="../pages/Newsletter.html" class="navigation"
+          >Newsletter<img src="../Images/Icons/letter.png" alt="" width="32"
+          height="32"</a
+        >
+        <a href="#"
+          ><img
+            src="../Images/Icons/light-bulb-icon-flat-style-lightbulb-vector-illustration-isolated-background-lamp-idea-business-concept-130598643.webp"
+            alt="Light Switch"
+            class="switch"
+            id="toggle-mode"
+        /></a>
+      </div>
+      <div class="title">Newsletter</div>
       <!-- Quiz Form -->
-      <form action="/triviaGame" method="POST">
-        <!-- Parameter for Questions# -->
-        <label for="amount">Number of Questions:</label>
-        <input type="number" id="amount" name="amount" min="1" required />
-        <!-- Categories -->
-        <select name="category" id="category">
-          <option value="9">General Knowledge</option>
-          <option value="27">Animals</option>
-          <option value="32">Cartoons & Animations</option>
-          <option value="29">Comics</option>
-          <option value="31">Japanese: Anime and Manga</option>
-          <option value="20">Mythology</option>
-          <option value="15">Video Games</option>
-        </select>
-        <!-- Difficulty -->
-        <select name="difficulty" id="difficulty">
-          <option value="easy">Over-Easy</option>
-          <option value="medium">Medium-SideUp</option>
-          <option value="hard">Hard-Boiled</option>
-        </select>
-        <!-- Button to submit form -->
-        <button>Start Game!</button>
-      </form>
+      <div id="questionBar">
+        <label for=""
+          >Have Suggestions for a Quiz? Click me <img src="" alt=""
+        /></label>
+        <form action="/triviaGame" method="POST">
+          <!-- Parameter for Questions# -->
+          <label for="amount">Number of Questions:</label>
+          <input type="number" id="amount" name="amount" min="1" required />
+          <!-- Categories -->
+          <select name="category" id="category">
+            <option value="">Pick a Category</option>
+            <option
+              value="9"
+              data-title="General Knowledge"
+              data-desc="Test your wits with common knowledge trivia!"
+              data-img="../Images/Icons/mont-blanc.png"
+            >
+              General Knowledge
+            </option>
+            <option
+              value="27"
+              data-title="Animals"
+              data-desc="Trivia about animals of all kinds!"
+              data-img="../../public/Images/black-glow-hexagon-white-purple-gradient-2560x1700-c4-000000-ffffff-8a2be2-000000-l2-10-132-a-15-f-6.svg"
+            >
+              Animals
+            </option>
+            <option
+              value="32"
+              data-title="Cartoons & Animations"
+              data-desc="Explore the world of animated shows and movies!"
+              data-img="/images/cartoons.jpg"
+            >
+              Cartoons & Animations
+            </option>
+            <option
+              value="29"
+              data-title="Comics"
+              data-desc="Questions about your favorite comic characters and stories!"
+              data-img="/images/comics.jpg"
+            >
+              Comics
+            </option>
+            <option
+              value="31"
+              data-title="Anime & Manga"
+              data-desc="Dive into Japanese animation and manga trivia!"
+              data-img="/images/anime.jpg"
+            >
+              Anime & Manga
+            </option>
+            <option
+              value="20"
+              data-title="Mythology"
+              data-desc="Explore the legends and myths of the world!"
+              data-img="/images/mythology.jpg"
+            >
+              Mythology
+            </option>
+            <option
+              value="15"
+              data-title="Video Games"
+              data-desc="Test your gaming knowledge with video game trivia!"
+              data-img="/images/videogames.jpg"
+            >
+              Video Games
+            </option>
+          </select>
+          <!-- Difficulty -->
+          <select name="difficulty" id="difficulty">
+            <option value="easy">Over-Easy</option>
+            <option value="medium">Medium-SideUp</option>
+            <option value="hard">Hard-Boiled</option>
+          </select>
+          <!-- Button to submit form -->
+          <button>Start Game!</button>
+        </form>
+      </div>
+      <!-- Card Container -->
+      <div id="cardContainer">
+        <div id="popup-card" class="hidden">
+          <div class="card-inner">
+            <!-- Front Side of the Card (img) -->
+            <div class="card-front">
+              <img src="" alt=" Trivia Category Image" id="popup-image" />
+            </div>
+            <!-- Backside(heh) of the Card Description/Tittle -->
+            <div class="card-back">
+              <h1 id="popup-title"></h1>
+              <p id="popup-description"></p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </body>
 </html>
+
+<img src="" alt="" />
