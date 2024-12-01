@@ -92,6 +92,8 @@ router.post("/custom", (req, res) => {
 
 // Update a custom question (PATCH)
 router.patch("/custom/:index", (req, res) => {
+  console.log("PATCH request received:", req.params.index, req.body);
+
   const index = parseInt(req.params.index, 10);
   const { question, correct_answer, incorrect_answers } = req.body;
 
@@ -105,19 +107,20 @@ router.patch("/custom/:index", (req, res) => {
     !correct_answer ||
     incorrectAnswersArray.length === 0
   ) {
+    console.error("Invalid input or index:", req.body);
     return res.status(400).send("Invalid input or index.");
   }
 
   try {
-    // Update the question in the backend
     updateCustomQuestion(index, {
       question,
       correct_answer,
       incorrect_answers: incorrectAnswersArray,
     });
-
-    res.redirect("/triviaGame/manage?status=updated"); // Redirect to the manage page
+    console.log("Question updated successfully");
+    res.redirect("/triviaGame/manage?status=updated");
   } catch (err) {
+    console.error("Error updating question:", err);
     res.status(500).send("Failed to update question.");
   }
 });

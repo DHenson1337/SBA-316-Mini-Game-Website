@@ -41,25 +41,30 @@
         >
         <a href="#"
           ><img
-            src="../Images/Icons/light-bulb-icon-flat-style-lightbulb-vector-illustration-isolated-background-lamp-idea-business-concept-130598643.webp"
+            src="../Images/Icons/triviaExpress1.webp"
             alt="Light Switch"
             class="switch"
             id="toggle-mode"
         /></a>
       </div>
-      <div class="title">Newsletter</div>
+      <div class="title">Trivia Express</div>
+
       <!-- Quiz Form -->
       <div id="questionBar">
-        <a href="http://localhost:3000/triviaGame/manage"
-          >Make your own Questions?</a
-        >
         <form action="/triviaGame" method="POST">
           <!-- Parameter for Questions# -->
-          <label for="amount">Number of Questions:</label>
-          <input type="number" id="amount" name="amount" min="1" required />
+
+          <input
+            type="number"
+            id="amount"
+            name="amount"
+            min="1"
+            placeholder="Questions #"
+            required
+          />
           <!-- Categories -->
           <select name="category" id="category">
-            <option value="">Pick a Category</option>
+            <option value="">Trivia!</option>
             <!-- None Api Question Category -->
             <option
               value="custom"
@@ -136,26 +141,30 @@
           </select>
           <!-- Button to submit form -->
           <button>Start Game!</button>
+          <a href="http://localhost:3000/triviaGame/manage"
+            >Make your own Questions?</a
+          >
         </form>
       </div>
       <!-- Card Container -->
-      <div id="cardContainer">
-        <div id="popup-card" class="hidden">
+      <div id="cards-container">
+        <% categories.forEach((category) => { %>
+        <div class="card">
           <div class="card-inner">
-            <!-- Front Side of the Card (img) -->
+            <!-- Card Front -->
             <div class="card-front">
-              <img src="" alt="_" id="popup-image" />
+              <h3><%= category.title %></h3>
+              <img src="<%= category.image %>" alt="<%= category.title %>" />
             </div>
-            <!-- Backside(heh) of the Card Description/Tittle -->
+
+            <!-- Card Back -->
             <div class="card-back">
-              <h1 id="popup-title"></h1>
-              <p id="popup-description"></p>
+              <p><%= category.description %></p>
             </div>
           </div>
         </div>
+        <% }) %>
       </div>
     </div>
   </body>
 </html>
-
-<img src="" alt="" />

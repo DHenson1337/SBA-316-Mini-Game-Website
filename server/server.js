@@ -36,10 +36,75 @@ app.use(logRequestData);
 app.use(methodOverride("_method")); // Method-Override middleware must come after body parsers
 
 //triviaHome Route (Route 1) Static Route
+
 app.get("/triviaHome", (req, res) => {
-  const filePath = path.join(__dirname, "views", "triviaHome.ejs");
-  console.log(`Attempting to render file: ${filePath}`);
-  res.render("triviaHome");
+  const categories = [
+    {
+      id: "custom",
+      title: "Custom Questions",
+      image: "../Images/triviaExpress/custom4.webp",
+      description: "Test your wits with common knowledge trivia!",
+    },
+    {
+      id: "9",
+      title: "General Knowledge",
+      image: "../Images/triviaExpress/general5.webp",
+      description: "Test your wits with common knowledge trivia!",
+    },
+    {
+      id: "31",
+      title: "Anime & Manga",
+      image: "../Images/triviaExpress/anime1.webp",
+      description: "Dive into Japanese animation and manga trivia!",
+    },
+    {
+      id: "27",
+      title: "Animals",
+      image: "../Images/triviaExpress/animals4.webp",
+      description: "Trivia about animals of all kinds!",
+    },
+    {
+      id: "32",
+      title: "Cartoons & Animations",
+      image: "../Images/triviaExpress/cartoons3.webp",
+      description: "Explore the world of animated shows and movies!",
+    },
+    {
+      id: "29",
+      title: "Comics",
+      image: "../Images/triviaExpress/comics2.webp",
+      description:
+        "Questions about your favorite comic characters and stories!",
+    },
+    {
+      id: "11",
+      title: "Films",
+      image: "../Images/triviaExpress/movies1.webp",
+      description: "Test your gaming knowledge with video game trivia!",
+    },
+
+    {
+      id: "20",
+      title: "Mythology",
+      image: "../Images/triviaExpress/myth2.webp",
+      description: "Explore the legends and myths of the world!",
+    },
+    {
+      id: "23",
+      title: "History",
+      image: "../Images/triviaExpress/history1.webp",
+      description: "Test your gaming knowledge with video game trivia!",
+    },
+
+    {
+      id: "15",
+      title: "Video Games",
+      image: "../Images/triviaExpress/game3.webp",
+      description: "Test your gaming knowledge with video game trivia!",
+    },
+  ];
+
+  res.render("triviaHome", { categories }); // Pass the array to the template
 });
 
 // triviaGame Route (Route 2)
