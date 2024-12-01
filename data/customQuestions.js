@@ -24,13 +24,17 @@ const addCustomQuestion = (newQuestion) => {
 const updateCustomQuestion = (index, updatedQuestion) => {
   if (customQuestions[index]) {
     customQuestions[index] = updatedQuestion;
+  } else {
+    console.error("Question not found at index", index);
   }
 };
 
 //Delete route
 const deleteCustomQuestion = (index) => {
   if (customQuestions[index]) {
-    customQuestions.splice(index, 1);
+    customQuestions.splice(index, 1); // Remove the question at the specified index
+  } else {
+    console.error("Question not found at index", index);
   }
 };
 

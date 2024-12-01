@@ -1,7 +1,11 @@
-/*GET: http://localhost:3000/triviaGame/custom
+/* (Routes for Custom)
+GET: http://localhost:3000/triviaGame/custom
  POST: http://localhost:3000/triviaGame/custom
 PATCH: http://localhost:3000/triviaGame/custom/0 (for index 0)
-DELETE: http://localhost:3000/triviaGame/custom/0 (for index 0) */
+DELETE: http://localhost:3000/triviaGame/custom/0 (for index 0) 
+
+Manage custom Trivia Questions
+http://localhost:3000/triviaGame/manage*/
 
 const express = require(`express`);
 const router = express.Router();
@@ -49,7 +53,16 @@ router.post("/", async (req, res) => {
   }
 });
 //====================GET, POST, PATCH, DELETE routes for custom questions========================
+//localhost:3000/triviaGame/manage
 
+// Route to display manage trivia questions page (GET)
+router.get("/manage", (req, res) => {
+  const customQuestions = getAllCustomQuestions();
+  res.render("manageTriviaQuestions", {
+    customQuestions: customQuestions,
+    query: req.query, // Pass req.query to the template
+  });
+});
 // Route to get all custom questions (GET)
 router.get("/custom", (req, res) => {
   const customQuestions = getAllCustomQuestions(); // Get all custom questions
@@ -57,61 +70,75 @@ router.get("/custom", (req, res) => {
 });
 
 // Custom Post Route (POST)
-// triviaGame.js
 router.post("/custom", (req, res) => {
   const { question, correct_answer, incorrect_answers } = req.body;
 
-  if (question && correct_answer && incorrect_answers) {
-    // You should use the imported addCustomQuestion function
+  // Ensure incorrect_answers is treated as an array
+  const incorrectAnswersArray = incorrect_answers
+    .split(",")
+    .map((ans) => ans.trim());
+
+  if (question && correct_answer && incorrectAnswersArray.length > 0) {
     addCustomQuestion({
       question,
       correct_answer,
-      incorrect_answers,
+      incorrect_answers: incorrectAnswersArray, // Use the array
     });
-    res.status(201).json({ message: "Custom question added!" });
+    res.redirect("/triviaGame/manage"); // Redirect to manage page after adding
   } else {
-    res.status(400).json({
-      message:
-        "Invalid input. Question, correct_answer, and incorrect_answers are required.",
-    });
+    res.status(400).json({ message: "Invalid input." });
   }
 });
 
 // Update a custom question (PATCH)
 router.patch("/custom/:index", (req, res) => {
-  const index = parseInt(req.params.index);
+  const index = parseInt(req.params.index, 10);
   const { question, correct_answer, incorrect_answers } = req.body;
 
-  if (Number.isNaN(index)) {
-    return res.status(400).json({ message: "Invalid index." });
+  const incorrectAnswersArray = incorrect_answers
+    .split(",")
+    .map((ans) => ans.trim());
+
+  if (
+    Number.isNaN(index) ||
+    !question ||
+    !correct_answer ||
+    incorrectAnswersArray.length === 0
+  ) {
+    return res.status(400).send("Invalid input or index.");
   }
 
-  if (index >= 0 && question && correct_answer && incorrect_answers) {
+  try {
+    // Update the question in the backend
     updateCustomQuestion(index, {
       question,
       correct_answer,
-      incorrect_answers,
+      incorrect_answers: incorrectAnswersArray,
     });
-    res.status(200).json({ message: "Custom question updated!" });
-  } else {
-    res.status(400).json({ message: "Invalid input or index." });
+
+    res.redirect("/triviaGame/manage?status=updated"); // Redirect to the manage page
+  } catch (err) {
+    res.status(500).send("Failed to update question.");
   }
 });
 
 // Delete a custom question (DELETE)
 router.delete("/custom/:index", (req, res) => {
-  const index = parseInt(req.params.index);
+  const index = parseInt(req.params.index, 10);
+
+  console.log("DELETE Request: ", { index });
 
   if (Number.isNaN(index)) {
-    return res.status(400).json({ message: "Invalid index." });
+    console.error("Invalid index:", req.params.index);
+    return res.status(400).send("Invalid index.");
   }
 
-  if (index >= 0) {
+  try {
     deleteCustomQuestion(index);
-    res.status(200).json({ message: "Custom question deleted!" });
-  } else {
-    res.status(400).json({ message: "Invalid index." });
+    res.redirect("/triviaGame/manage"); // Redirect back to the manage page
+  } catch (err) {
+    console.error("Error deleting question:", err);
+    res.status(500).send("Failed to delete question.");
   }
 });
-
 module.exports = router;

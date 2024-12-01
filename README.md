@@ -31,7 +31,8 @@ PATCH: http://localhost:3000/triviaGame/custom/0 (for index 0)
 DELETE: http://localhost:3000/triviaGame/custom/0 (for index 0)
 
 3.B My custom middleware (const logRequestData )
-Has been very helpful for tracking each request as well as confirming my routes are correct
+Has been very helpful for tracking each request as well as confirming my routes are correct.
+Had to also include (methodOverride to allow PATCH & DELETE methods through POST)
 
 4. Newsletter ✉️
    This section is my attempt at form validation (spoiler: it's not about me needing validation... but I wouldn't say no to a little praise 😊). This feature is part of my project requirements, but hey, if you want to give me some positive feedback, feel free to! 💌

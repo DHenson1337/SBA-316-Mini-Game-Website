@@ -2,18 +2,19 @@ const express = require(`express`); // Express access
 const axios = require(`axios`); //Axios access
 const ejs = require(`ejs`); // ejs Engine access
 const path = require("path"); // Allows my server to find files in other directories
+const methodOverride = require("method-override"); // Include method-override
+//Pulling Routes
+const triviaGame = require("./routes/triviaGame.js");
 
 const app = express(); //setting app to express (duh lel)
 
-//Pulling Routes
-const triviaGame = require("./routes/triviaGame.js");
 // const yangRouter = require("./routes/yang.js");
 // const yoRouter = require("./routes/yo.js");
 
 app.set("view engine", "ejs"); //Tells Express to use ejs view engine
 app.set("views", path.join(__dirname, "views")); //Setting up views folder
 
-// Middleware
+// Middleware (The order really matters....)
 app.use(express.static(path.join(__dirname, "../public"))); // Middleware for serving static files
 app.use(express.urlencoded({ extended: true })); // For form data
 app.use(express.json()); // Middleware to parse JSON request bodies
@@ -26,12 +27,13 @@ const logRequestData = (req, res, next) => {
 };
 
 // Use the logging middleware globally for all routes
-app.use(logRequestData);
-
 //What this Middleware does is
 //1) : This function logs the HTTP request method (req.method), the request URL (req.url), and the current timestamp.
 //2) app.use(logRequestData): This middleware is applied to every request that the server handles. You can add it globally or on specific routes.
 //3) The next() function is important—it tells Express to pass the request to the next middleware or route handler.
+app.use(logRequestData);
+
+app.use(methodOverride("_method")); // Method-Override middleware must come after body parsers
 
 //triviaHome Route (Route 1) Static Route
 app.get("/triviaHome", (req, res) => {
@@ -53,7 +55,6 @@ app.get(`/pages/:pageName`, (req, res) => {
     "pages",
     `${pageName}.html`
   ); // Builds the path
-
   // Attempt to send the HTML file
   res.sendFile(filePath, (err) => {
     if (err) {
@@ -113,3 +114,16 @@ DELETE: 	http://localhost:3000/triviaGame/custom/:index
 
 //Probably shouldn't use this section for notes as well but...I told you to ignore it!
 //Why are you reading it, there is no content here Sho Sho.
+
+/* // Test Routes
+app.post("/test", (req, res) => {
+  res.send("POST route works!");
+});
+
+app.patch("/test", (req, res) => {
+  res.send("PATCH route works!");
+});
+
+app.delete("/test", (req, res) => {
+  res.send("DELETE route works!");
+}); */

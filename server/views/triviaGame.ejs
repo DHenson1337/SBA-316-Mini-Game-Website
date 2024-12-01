@@ -50,7 +50,46 @@
           </button>
           <% }); %>
         </div>
+
+        <!-- Edit form (PATCH) -->
+        <form action="/triviaGame/custom/<%= index %>" method="POST">
+          <input type="hidden" name="_method" value="PATCH" />
+          <label for="new_question_<%= index %>">New Question:</label>
+          <input
+            type="text"
+            id="new_question_<%= index %>"
+            name="question"
+            value="<%= q.question %>"
+          /><br />
+
+          <label for="new_correct_answer_<%= index %>">Correct Answer:</label>
+          <input
+            type="text"
+            id="new_correct_answer_<%= index %>"
+            name="correct_answer"
+            value="<%= q.correct_answer %>"
+          /><br />
+
+          <label for="new_incorrect_answers_<%= index %>"
+            >Incorrect Answers:</label
+          >
+          <input
+            type="text"
+            id="new_incorrect_answers_<%= index %>"
+            name="incorrect_answers"
+            value="<%= q.incorrect_answers.join(', ') %>"
+          /><br />
+
+          <button type="submit">Update</button>
+        </form>
+
+        <!-- Delete form (DELETE) -->
+        <form action="/triviaGame/custom/<%= index %>" method="POST">
+          <input type="hidden" name="_method" value="DELETE" />
+          <button type="submit">Delete</button>
+        </form>
       </div>
+      <hr />
       <% }); %> <% } else { %>
       <p>No custom questions available. Add your own!</p>
       <% } %>

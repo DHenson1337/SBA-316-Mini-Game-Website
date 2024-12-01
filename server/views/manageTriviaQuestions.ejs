@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manage Custom Trivia Questions</title>
+    <link rel="stylesheet" href="" />
+  </head>
+  <body>
+    <h1>Manage Custom Trivia Questions</h1>
+    <a href="http://localhost:3000/triviaHome">Go Back</a>
+    <br />
+
+    <% if (query.status === "deleted") { %>
+    <p style="color: green">Question deleted successfully!</p>
+    <% } else if (query.status === "updated") { %>
+    <p style="color: green">Question updated successfully!</p>
+    <% } %>
+    <br />
+    <!-- Form to add a new question -->
+    <form action="/triviaGame/custom" method="POST">
+      <label for="question">Question:</label>
+      <input type="text" name="question" id="question" required />
+
+      <label for="correct_answer">Correct Answer:</label>
+      <input type="text" name="correct_answer" id="correct_answer" required />
+
+      <label for="incorrect_answers"
+        >Incorrect Answers (comma-separated):</label
+      >
+      <input
+        type="text"
+        name="incorrect_answers"
+        id="incorrect_answers"
+        required
+      />
+
+      <button type="submit">Add Question</button>
+    </form>
+
+    <!-- List of existing custom questions -->
+    <h2>Existing Questions</h2>
+    <ul>
+      <% customQuestions.forEach((question, index) => { %>
+      <li>
+        <strong><%= question.question %></strong><br />
+        Correct Answer: <%= question.correct_answer %><br />
+        Incorrect Answers: <%= Array.isArray(question.incorrect_answers) ?
+        question.incorrect_answers.join(", ") : "" %><br />
+
+        <!-- Edit form (PATCH) -->
+        <form action="/triviaGame/custom/0?_method=PATCH" method="POST">
+          <input type="text" name="question" value="Updated question text" />
+          <input
+            type="text"
+            name="correct_answer"
+            value="Updated correct answer"
+          />
+          <input
+            type="text"
+            name="incorrect_answers"
+            value="Answer 1, Answer 2"
+          />
+          <button type="submit">Update Question</button>
+        </form>
+
+        <!-- Delete form (DELETE) -->
+        <form
+          action="/triviaGame/custom/<%= index %>?_method=DELETE"
+          method="POST"
+        >
+          <button type="submit">Delete Question</button>
+        </form>
+      </li>
+      <% }); %>
+    </ul>
+  </body>
+</html>
