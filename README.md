@@ -25,10 +25,11 @@ Games 🎮
 3.A This is the current SBA so the read me will contain more details:
 The game can be found on http://localhost:3000/triviaHome
 
-GET: http://localhost:3000/triviaGame/custom
-POST: http://localhost:3000/triviaGame/custom
-PATCH: http://localhost:3000/triviaGame/custom/0 (for index 0)
-DELETE: http://localhost:3000/triviaGame/custom/0 (for index 0)
+(All four can be found at http://localhost:3000/triviaGame/manage)
+GET:
+POST:
+PATCH:
+DELETE:
 
 3.B My custom middleware (const logRequestData )
 Has been very helpful for tracking each request as well as confirming my routes are correct.
@@ -38,6 +39,8 @@ Had to also include (methodOverride to allow PATCH & DELETE methods through POST
 // localhost:3000/dumb
 //http://localhost:3000/dumb?icecream=Vanilla
 //http://localhost:3000/dumb?size=tiny
+
+3.D The main page http://localhost:3000/triviaHome you can get the
 
 4. Newsletter ✉️
    This section is my attempt at form validation (spoiler: it's not about me needing validation... but I wouldn't say no to a little praise 😊). This feature is part of my project requirements, but hey, if you want to give me some positive feedback, feel free to! 💌
