@@ -9,6 +9,7 @@
       background-attachment: fixed;
       background-size: cover;
       color: aliceblue; */
+
   font-family: "Press Start 2P", cursive;
 }
 
@@ -283,6 +284,31 @@ button {
   position: relative;
   display: inline-block;
   width: 200px;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f2a7b5;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, #5a9fc8, #f2a7b5);
+  border-radius: 10px;
+  border: 2px solid #f2a7b5;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(45deg, #f2a7b5, #5a9fc8);
+}
+
+/* Firefox Support */
+html {
+  scrollbar-width: thin; /* Thin scrollbar for a modern look */
+  scrollbar-color: linear-gradient(45deg, #5a9fc8, #f2a7b5) #f2a7b5; /* Thumb and track colors */
 }
 
 @keyframes slowPurplePulse {

@@ -5,6 +5,8 @@ const path = require("path"); // Allows my server to find files in other directo
 const methodOverride = require("method-override"); // Include method-override
 //Pulling Routes
 const triviaGame = require("./routes/triviaGame.js");
+const dumb1 = require("./routes/dumbRoute1.js");
+const dumb2 = require("./routes/dumbRoute2.js");
 
 const app = express(); //setting app to express (duh lel)
 
@@ -107,8 +109,16 @@ app.get("/triviaHome", (req, res) => {
   res.render("triviaHome", { categories }); // Pass the array to the template
 });
 
-// triviaGame Route (Route 2)
+// triviaGame Route
 app.use("/triviaGame", triviaGame);
+
+// Route 2 dumb route
+// localhost:3000/dumb
+app.use("/dumb", dumb1);
+
+//Route 3 dumb2 route
+// localhost:3000/dumb2
+app.use("/dumb2", dumb2);
 
 // Dynamic route to get HTML pages under the public folder (Will probably become obsolete once we start React)
 app.get(`/pages/:pageName`, (req, res) => {

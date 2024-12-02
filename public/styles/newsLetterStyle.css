@@ -46,13 +46,13 @@ video.background-clip {
   justify-content: space-evenly;
   flex-wrap: wrap;
   font-size: xx-small;
-  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
+  text-shadow: 15px 15px 15px rgba(0, 0, 0, 0.7);
 
   border: 0.9px solid;
 }
 
 .header a {
-  color: white; /* Default white color */
+  color: hsl(298, 100%, 50%);
   text-decoration: none; /* Remove underline */
   transition: transform 0.5s ease; /* Smooth scaling effect */
 }
@@ -64,13 +64,11 @@ video.background-clip {
 }
 
 .title {
-  background-color: rgba(0, 0, 0, 0.5); /* Black with 50% transparency */
-  color: white; /* White text for better visibility */
-  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7); /* Adds a subtle shadow to the text */
-  border-radius: 15px;
-  margin-top: 20px;
+  color: hsl(298, 100%, 50%);
+  text-shadow: 1px 1px 2px #000000;
+  font-size: 24px;
   text-align: center;
-  padding: 10px;
+  margin: 10px 0;
 }
 
 .main {
@@ -272,6 +270,25 @@ video.background-clip {
 
 .dropdown:hover .dropdown-content {
   display: block;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #dedcdc;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, #ffffff, hsl(298, 100%, 50%));
+  border-radius: 10px;
+  border: 2px solid #f2a7b5;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(45deg, hsl(298, 100%, 50%), #ffffff);
 }
 
 @keyframes slowPurplePulse {
