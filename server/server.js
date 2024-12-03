@@ -3,15 +3,13 @@ const axios = require(`axios`); //Axios access
 const ejs = require(`ejs`); // ejs Engine access
 const path = require("path"); // Allows my server to find files in other directories
 const methodOverride = require("method-override"); // Include method-override
+
 //Pulling Routes
 const triviaGame = require("./routes/triviaGame.js");
 const dumb1 = require("./routes/dumbRoute1.js");
 const dumb2 = require("./routes/dumbRoute2.js");
 
 const app = express(); //setting app to express (duh lel)
-
-// const yangRouter = require("./routes/yang.js");
-// const yoRouter = require("./routes/yo.js");
 
 app.set("view engine", "ejs"); //Tells Express to use ejs view engine
 app.set("views", path.join(__dirname, "views")); //Setting up views folder

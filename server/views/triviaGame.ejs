@@ -5,13 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Trivia Express road to Heck!</title>
     <link rel="stylesheet" href="../../styles/triviaGame.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
     <script defer src="../../scripts/triviaGameLogic.js"></script>
   </head>
   <body>
+    <video autoplay loop muted playsinline class="background-clip">
+      <source
+        src="../Images/backGrounds/aesthetic-landscape-with-train.1920x1080.mp4"
+        type="video/mp4"
+      />
+      Your browser does not support the video tag.
+    </video>
     <div id="quiz-container">
       <!-- API Questions Block -->
       <% if (questions && questions.length > 0) { %>
-      <h2>API Questions</h2>
+      <h2>(Features Coming Soon)</h2>
       <% questions.forEach((q, index) => { %>
       <div class="question-block" id="question-<%= index %>">
         <h2>Question <%= index + 1 %>: <%= q.question %></h2>
@@ -34,7 +45,7 @@
 
       <!-- Custom Questions Block -->
       <% if (customQuestions && customQuestions.length > 0) { %>
-      <h2>Custom Questions</h2>
+      <h2>(Content coming soon)</h2>
       <% customQuestions.forEach((q, index) => { %>
       <div class="question-block" id="custom-question-<%= index %>">
         <h2>Question <%= index + 1 %>: <%= q.question %></h2>
