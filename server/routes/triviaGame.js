@@ -73,13 +73,58 @@ router.post("/", async (req, res) => {
 //====================GET, POST, PATCH, DELETE routes for custom questions========================
 //localhost:3000/triviaGame/manage
 
-// Route to display manage trivia questions page (GET)
-router.get("/manage", (req, res) => {
-  const customQuestions = getAllCustomQuestions();
-  res.render("manageTriviaQuestions", {
-    customQuestions: customQuestions,
-    query: req.query, // Pass req.query to the template
-  });
+// (GET) Route to display manage trivia questions page
+router.get(`/manage`, async (req, res) => {
+  const searchQuery = req.query.q; //Check if there's a search query
+  let triviaQuestions = [];
+  let searchResults = [];
+
+  try {
+    if (searchQuery) {
+      searchResults = await TriviaQuestion.find({
+        $text: { $search: searchQuery },
+      }); // Fetch search results
+    } else {
+      triviaQuestions = await TriviaQuestion.find(); //Gets all the questions
+    }
+    res.render(`manageTriviaQuestions`, {
+      triviaQuestions,
+      searchResults,
+    });
+  } catch (err) {
+    console.error(`Error loading manage page:`, err);
+    res.status(500).send(`Error loading manage page`);
+  }
+});
+
+// (GET) Search Trivia questions
+router.get(`/manage`, async (req, res) => {
+  const searchQuery = req.query.q || ""; // Default to an empty string if no search query
+  let triviaQuestions = [];
+  let searchResults = [];
+
+  try {
+    if (searchQuery) {
+      console.log(`Search query: ${searchQuery}`);
+      searchResults = await TriviaQuestion.find({
+        $text: { $search: searchQuery },
+      }); // Perform a text search
+    } else {
+      triviaQuestions = await TriviaQuestion.find(); // Fetch all questions
+    }
+
+    // Debugging: Log what is being passed to the template
+    console.log(`Trivia Questions:`, triviaQuestions);
+    console.log(`Search Results:`, searchResults);
+
+    res.render(`manageTriviaQuestions`, {
+      triviaQuestions,
+      searchResults,
+    });
+  } catch (err) {
+    console.error(`Error loading manage page:`, err);
+    res.status(500).send(`Error loading manage page`);
+  }
 });
 
 // (GET) Route for getting all the trivia questions
@@ -248,6 +293,15 @@ router.delete("/custom/:index", (req, res) => {
     console.error("Error deleting question:", err);
     res.status(500).send("Failed to delete question.");
   }
+}); */
+
+//Old get route to manage trivia questions
+/* router.get("/manage", (req, res) => {
+  const customQuestions = getAllCustomQuestions();
+  res.render("manageTriviaQuestions", {
+    customQuestions: customQuestions,
+    query: req.query, // Pass req.query to the template
+  });
 }); */
 
 module.exports = router;
