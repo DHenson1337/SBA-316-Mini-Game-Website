@@ -6,7 +6,7 @@ DELETE: http://localhost:3000/triviaGame/custom/0 (for index 0)
 
 Manage custom Trivia Questions
 http://localhost:3000/triviaGame/manage*/
-
+const TriviaQuestion = require(`../models/TriviaQuestion`);
 const express = require(`express`);
 const router = express.Router();
 const axios = require(`axios`); //Axios access
@@ -16,6 +16,23 @@ const {
   updateCustomQuestion,
   deleteCustomQuestion,
 } = require("../../data/customQuestions"); // Import custom questions
+
+//Test route to check TriviaQuestion model
+//localhost:3000/trivia/test-trivia-model
+router.get(`/test-trivia-model`, async (req, res) => {
+  try {
+    // This logs the model to ensure it is properly imported
+    console.log(TriviaQuestion);
+
+    //Send a Success message to the client (me)
+    res.json({ message: `TriviaQuestion model is working` });
+  } catch (err) {
+    res.status(500).json({
+      message: `Error testing TriviaQuestion model`,
+      error: err.message,
+    });
+  }
+});
 
 //localhost:3000/triviaGame
 // Route for GET request to /triviaGame

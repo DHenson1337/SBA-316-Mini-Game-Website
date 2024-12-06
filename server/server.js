@@ -1,3 +1,7 @@
+//Load enviroment variable from .env
+require(`dotenv`).config(); //Ensure dotenv is loaded
+
+//Import dependencies
 const express = require(`express`); // Express access
 const axios = require(`axios`); //Axios access
 const ejs = require(`ejs`); // ejs Engine access
@@ -5,7 +9,7 @@ const path = require("path"); // Allows my server to find files in other directo
 const methodOverride = require("method-override"); // Include method-override
 
 //Pulling Routes
-const triviaGame = require("./routes/triviaGame.js");
+const triviaRoutes = require("./routes/triviaGame.js");
 const dumb1 = require("./routes/dumbRoute1.js");
 const dumb2 = require("./routes/dumbRoute2.js");
 
@@ -108,7 +112,7 @@ app.get("/triviaHome", (req, res) => {
 });
 
 // triviaGame Route
-app.use("/triviaGame", triviaGame);
+app.use("/triviaGame", triviaRoutes);
 
 // Route 2 dumb route
 // localhost:3000/dumb
@@ -135,6 +139,9 @@ app.get(`/pages/:pageName`, (req, res) => {
     }
   });
 });
+
+//Use the port from .env or default to 3000
+const port = process.env.PORT || 3000;
 
 const PORT = 3000;
 app.listen(PORT, () => {
