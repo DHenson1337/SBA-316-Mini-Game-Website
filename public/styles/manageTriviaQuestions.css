@@ -1,0 +1,180 @@
+body {
+  font-family: "Press Start 2P", cursive;
+  margin: 0;
+  padding: 0;
+}
+
+video.background-clip {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1; /* Send behind all content */
+}
+
+h1 {
+  text-align: center;
+  font-size: 24px;
+  color: #5a9fc8;
+  text-shadow: -1px -1px 2px #333, 1px 1px 2px #333, 0 0 5px #ffffff;
+  margin-bottom: 20px;
+}
+
+a {
+  display: inline-block;
+  text-decoration: none;
+  color: #ffffff;
+  background-color: #5a9fc8;
+  padding: 10px 20px;
+  border: 2px solid #333;
+  border-radius: 10px;
+  margin: 10px auto;
+  font-size: 14px;
+  text-align: center;
+  text-shadow: -1px -1px 2px #333, 1px 1px 2px #333;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+a:hover {
+  background-color: #f2a7b5;
+  color: #5a9fc8;
+  transform: scale(1.1);
+}
+
+form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 15px;
+  background-color: rgba(90, 159, 200, 0.9);
+  border: 3px solid #000;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3), 0 0 0 0.2px #000000;
+}
+
+form label {
+  flex: 1 1 100%;
+  color: #f2a7b5;
+  font-size: 14px;
+  text-shadow: -1px -1px 2px #333, 1px 1px 2px #333;
+}
+
+form input[type="text"] {
+  flex: 1 1 100%;
+  padding: 10px;
+  border: 2px solid #5a9fc8;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent white */
+  font-size: 14px;
+  color: #5a9fc8;
+}
+
+form input[type="text"]::placeholder {
+  color: #5a9fc8;
+  font-style: italic;
+}
+
+form button {
+  flex: 1 1 100%;
+  padding: 10px;
+  border-radius: 10px;
+  border: 2px solid #5a9fc8;
+  background-color: #f2a7b5; /* Pink background */
+  color: #5a9fc8;
+  font-size: 14px;
+  cursor: pointer;
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+form button:hover {
+  background-color: #5a9fc8;
+  color: #f2a7b5;
+  transform: scale(1.05);
+  box-shadow: 0 0 10px #ffffff, 0 0 20px #5a9fc8;
+}
+
+h2 {
+  font-size: 20px;
+  text-align: center;
+  color: #5a9fc8;
+  text-shadow: -1px -1px 2px #333, 1px 1px 2px #333, 0 0 5px #ffffff;
+  margin: 20px 0;
+}
+
+ul {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  list-style-type: none;
+  background-color: rgba(0, 0, 0, 0.8); /* Sharp black for contrast */
+  border: 3px solid #5a9fc8;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+li {
+  padding: 15px;
+  margin-bottom: 15px;
+  background-color: rgba(242, 167, 181, 0.95); /* Pink background for items */
+  border: 2px solid #5a9fc8;
+  border-radius: 10px;
+  color: #5a9fc8;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+li strong {
+  display: block;
+  margin-bottom: 5px;
+  color: #5a9fc8;
+  text-shadow: -1px -1px 2px #333, 1px 1px 2px #333;
+}
+
+li #correct {
+  color: #4caf50;
+  font-weight: bold;
+}
+
+li #incorrect {
+  color: #d32f2f;
+  font-weight: bold;
+}
+
+li form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+li input[type="text"] {
+  flex: 1 1 calc(33% - 10px);
+  padding: 5px;
+  border: 2px solid #5a9fc8;
+  border-radius: 5px;
+  background-color: #ffffff;
+  font-size: 12px;
+  color: #5a9fc8;
+}
+
+li button {
+  flex: 1 1 calc(33% - 10px);
+  padding: 5px 10px;
+  background-color: #5a9fc8;
+  color: #ffffff;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+li button:hover {
+  background-color: #f2a7b5;
+  color: #5a9fc8;
+  transform: scale(1.05);
+}

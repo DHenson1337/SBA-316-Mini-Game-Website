@@ -19,7 +19,7 @@ Games 🎮
 
    PokeManz is a nostalgic throwback featuring iconic Pokémon characters — but with customizable sprites pulled straight from the Pokémon API! Select your favorite Pokémon, play a variety of mini-games, and relive those childhood memories.
 
-3. Trivia Express! 🧠 🚅
+3. Trivia Express! 🧠 🚅 (Far from Complete alot of TLC needed)
    Test your knowledge in this trivia game, powered by Express and rendered with the EJS engine. Play a quick round or browse through trivia topics in a simple, yet fun blog-like interface. Who said learning can't be fun?
 
 3.A This is the current SBA so the read me will contain more details:
