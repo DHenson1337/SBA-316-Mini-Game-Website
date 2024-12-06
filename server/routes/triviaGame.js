@@ -1,14 +1,15 @@
 /* (Routes for Custom)
-GET: http://localhost:3000/triviaGame/custom
- POST: http://localhost:3000/triviaGame/custom
-PATCH: http://localhost:3000/triviaGame/custom/0 (for index 0)
-DELETE: http://localhost:3000/triviaGame/custom/0 (for index 0) 
+(GET) http://localhost:3000/triviaGame/trivia-questions
+(POST) http://localhost:3000/triviaGame/trivia-questions
+(PATCH)http://localhost:3000/triviaGame/trivia-questions/<id>
+
 
 Manage custom Trivia Questions
 http://localhost:3000/triviaGame/manage*/
 const TriviaQuestion = require(`../models/TriviaQuestion`);
 const express = require(`express`);
 const router = express.Router();
+const mongoose = require(`mongoose`); // Import mongoose to use ObjectID (and hopefully fix Patch and Delete)
 const axios = require(`axios`); //Axios access
 const {
   getAllCustomQuestions,
@@ -19,7 +20,7 @@ const {
 
 //Test route to check TriviaQuestion model
 //localhost:3000/trivia/test-trivia-model
-router.get(`/test-trivia-model`, async (req, res) => {
+/* router.get(`/test-trivia-model`, async (req, res) => {
   try {
     // This logs the model to ensure it is properly imported
     console.log(TriviaQuestion);
@@ -32,7 +33,7 @@ router.get(`/test-trivia-model`, async (req, res) => {
       error: err.message,
     });
   }
-});
+}); */
 
 //localhost:3000/triviaGame
 // Route for GET request to /triviaGame
@@ -80,14 +81,101 @@ router.get("/manage", (req, res) => {
     query: req.query, // Pass req.query to the template
   });
 });
-// Route to get all custom questions (GET)
-router.get("/custom", (req, res) => {
-  const customQuestions = getAllCustomQuestions(); // Get all custom questions
-  res.status(200).json(customQuestions); // Return custom questions as JSON
+
+// (GET) Route for getting all the trivia questions
+router.get(`/trivia-questions`, async (req, res) => {
+  try {
+    const questions = await TriviaQuestion.find(); //Fetches all questions from MongoDB
+    res.json(questions); // Return as JSON
+  } catch (err) {
+    res
+      .status(500)
+      .json({ message: `Error fetching trivia questions`, error: err.message });
+  }
 });
 
-// Custom Post Route (POST)
-router.post("/custom", (req, res) => {
+// (POST) post a trivia question
+router.post(`/trivia-questions`, async (req, res) => {
+  const { question, correct_answer, incorrect_answers } = req.body;
+
+  //Ensure incorrect_answers is an array; convert it if necessary
+  const formattedIncorrectAnswers = Array.isArray(incorrect_answers) // Check if it's already an array
+    ? incorrect_answers
+    : incorrect_answers.split(`,`).map((ans) => ans.trim()); //Converts to string array if needed
+
+  const newQuestion = new TriviaQuestion({
+    question,
+    correct_answer,
+    incorrect_answers: formattedIncorrectAnswers, // Use the formatted array for the check
+  });
+
+  try {
+    const savedQuestion = await newQuestion.save(); // Save to MongoSB
+    res.redirect(`/triviaGame/manage`); //redirect to the manage page
+  } catch (err) {
+    res
+      .status(400)
+      .json({ message: `Error adding trivia question`, error: err.message });
+  }
+});
+
+//(PATCH) Update a trivia question
+router.patch(`/trivia-questions/:id`, async (req, res) => {
+  console.log("PATCH route triggered"); // Debugging
+  console.log("ID received:", req.params.id); // Log the ID received
+  console.log("Body received:", req.body); // Log the body
+  try {
+    const updatedQuestion = await TriviaQuestion.findByIdAndUpdate(
+      mongoose.Types.ObjectId(req.params.id), //Casst to ObjectId
+      // req.param.id, //Find by MongoDB ObjectId
+      req.body, // Applies the updates
+      { new: true, runValidators: true } // Return updated doc and apply schema validation
+    );
+    if (!updatedQuestion) {
+      return res.status(404).json({ message: `Trivia question not found` });
+    }
+    res.redirect(`/triviaGame/manage?status=updated`); // redirect to manage page
+  } catch (err) {
+    res
+      .status(400)
+      .json({ message: `Error updating trivia question`, error: err.message });
+  }
+});
+
+router.delete(`/trivia-questions/:id`, async (req, res) => {
+  console.log(`Delete route reached`); //Debugging the delete route again >.>
+  console.log("DELETE ID:", req.params.id); // debugging
+  try {
+    const deletedQuestion = await TriviaQuestion.findByIdAndDelete(
+      mongoose.Types.ObjectId(req.params.id) //Cast to ObjectID
+      // req.params.id
+    ); //Find and delete by ObjectID
+    if (!deletedQuestion) {
+      return res.status(404).json({ message: `Trivia question not found` });
+    }
+    res.redirect(`/triviaGame/manage`); //Redirect to manage page
+  } catch (err) {
+    res
+      .status(500)
+      .json({ message: `Error deleting trivia question`, error: err.message });
+  }
+});
+
+//=====================Old Routes b4 MongoDB ======================
+
+/* GET: http://localhost:3000/triviaGame/custom
+ POST: http://localhost:3000/triviaGame/custom
+PATCH: http://localhost:3000/triviaGame/custom/0 (for index 0)
+DELETE: http://localhost:3000/triviaGame/custom/0 (for index 0)  */
+
+// Route to get all custom questions (GET) (OLD)
+/* router.get("/custom", (req, res) => {
+  const customQuestions = getAllCustomQuestions(); // Get all custom questions
+  res.status(200).json(customQuestions); // Return custom questions as JSON
+}); */
+
+// Custom Post Route (POST) (OLD)
+/* router.post("/custom", (req, res) => {
   const { question, correct_answer, incorrect_answers } = req.body;
 
   // Ensure incorrect_answers is treated as an array
@@ -105,9 +193,9 @@ router.post("/custom", (req, res) => {
   } else {
     res.status(400).json({ message: "Invalid input." });
   }
-});
+}); */
 
-// Update a custom question (PATCH)
+/* // Update a custom question (PATCH)
 router.patch("/custom/:index", (req, res) => {
   console.log("PATCH request received:", req.params.index, req.body);
 
@@ -140,9 +228,9 @@ router.patch("/custom/:index", (req, res) => {
     console.error("Error updating question:", err);
     res.status(500).send("Failed to update question.");
   }
-});
+}); */
 
-// Delete a custom question (DELETE)
+/* // Delete a custom question (DELETE) (OLD)
 router.delete("/custom/:index", (req, res) => {
   const index = parseInt(req.params.index, 10);
 
@@ -160,5 +248,6 @@ router.delete("/custom/:index", (req, res) => {
     console.error("Error deleting question:", err);
     res.status(500).send("Failed to delete question.");
   }
-});
+}); */
+
 module.exports = router;

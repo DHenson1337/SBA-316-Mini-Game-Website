@@ -1,4 +1,5 @@
 //Load enviroment variable from .env
+require(`../config/db.js`);
 require(`dotenv`).config(); //Ensure dotenv is loaded
 
 //Import dependencies
@@ -20,8 +21,8 @@ app.set("views", path.join(__dirname, "views")); //Setting up views folder
 
 // Middleware (The order really matters....)
 app.use(express.static(path.join(__dirname, "../public"))); // Middleware for serving static files
-app.use(express.urlencoded({ extended: true })); // For form data
 app.use(express.json()); // Middleware to parse JSON request bodies
+app.use(express.urlencoded({ extended: true })); // For form data
 
 const logRequestData = (req, res, next) => {
   console.log(
@@ -112,6 +113,7 @@ app.get("/triviaHome", (req, res) => {
 });
 
 // triviaGame Route
+// console.log("Trivia routes are active");
 app.use("/triviaGame", triviaRoutes);
 
 // Route 2 dumb route
