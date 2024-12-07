@@ -1,3 +1,5 @@
+(For SBA: 319 Start from 3D)
+
 SBA-316-Mini-Game-Website 🎮
 Welcome to SBA-316-Mini-Game-Website!
 This project is a collection of interactive mini-games built with HTML, CSS, JavaScript, and Express.
@@ -40,7 +42,16 @@ Had to also include (methodOverride to allow PATCH & DELETE methods through POST
 //http://localhost:3000/dumb?icecream=Vanilla
 //http://localhost:3000/dumb?size=tiny
 
-3.D The main page http://localhost:3000/triviaHome you can get the
+3.D The main page http://localhost:3000/triviaHome
+3.E Seed the Data:
+3.F Create Indexes: node public/scripts/triviaGameInitIndexes.js
+3.G The routes revised. (But you can test them all under)
+http://localhost:3000/triviaGame/manage
+TriviaGame Routes
+(GET) http://localhost:3000/triviaGame/trivia-questions
+(POST) http://localhost:3000/triviaGame/trivia-questions
+(PATCH)http://localhost:3000/triviaGame/trivia-questions/<id>
+(DELETE)http://localhost:3000/triviaGame/trivia-questions/<id>
 
 4. Newsletter ✉️
    This section is my attempt at form validation (spoiler: it's not about me needing validation... but I wouldn't say no to a little praise 😊). This feature is part of my project requirements, but hey, if you want to give me some positive feedback, feel free to! 💌

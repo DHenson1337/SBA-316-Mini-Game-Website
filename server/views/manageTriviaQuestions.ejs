@@ -4,9 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Trivia Questions</title>
+    <link rel="stylesheet" href="../../styles/manageTriviaQuestions.css">
 </head>
 <body>
+
+    <video autoplay loop muted playsinline class="background-clip">
+        <source
+          src="../Images/backGrounds/aesthetic-landscape-with-train.1920x1080.mp4"
+          type="video/mp4"
+        />
+        Your browser does not support the video tag.
+      </video>
     <h1>Manage Trivia Questions</h1>
+
+    <a href="http://localhost:3000/triviaHome">Go back</a>
 
     <!-- Form to create a new question -->
     <h2>Create a New Trivia Question</h2>
@@ -29,6 +40,25 @@
 
         <button type="submit">Create Question</button>
     </form>
+
+    <h1>Manage Trivia Questions</h1>
+
+    <!-- Search Form -->
+    <form action="/triviaGame/manage" method="GET">
+      <label for="search">Search Questions:</label>
+      <input
+        type="text"
+        id="search"
+        name="q"
+        placeholder="Enter keywords"
+        value="<%= typeof searchQuery !== 'undefined' ? searchQuery : '' %>"
+      />
+      <button type="submit">Search</button>
+    </form>
+    
+   
+    
+
 
     <!-- List existing trivia questions -->
     <h2>Existing Questions</h2>

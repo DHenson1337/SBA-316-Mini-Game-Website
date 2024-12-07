@@ -92,53 +92,34 @@ router.post("/", async (req, res) => {
 
 // (GET) Route to display manage trivia questions page
 router.get(`/manage`, async (req, res) => {
-  const searchQuery = req.query.q; //Check if there's a search query
+  const searchQuery = req.query.q || ""; // Retrieve the search query or default to an empty string
   let triviaQuestions = [];
-  let searchResults = [];
 
   try {
     if (searchQuery) {
-      searchResults = await TriviaQuestion.find({
+      // Log the search query for debugging
+      console.log("Search Query:", searchQuery);
+
+      // Perform the text search
+      triviaQuestions = await TriviaQuestion.find({
         $text: { $search: searchQuery },
-      }); // Fetch search results
+      });
+
+      // Log the results for debugging
+      console.log("Search Results:", triviaQuestions);
     } else {
-      triviaQuestions = await TriviaQuestion.find(); //Gets all the questions
+      // Fetch all trivia questions if no search query is provided
+      triviaQuestions = await TriviaQuestion.find();
     }
+
+    // Render the EJS view with the questions and the search query
     res.render(`manageTriviaQuestions`, {
       triviaQuestions,
-      searchResults,
+      searchQuery,
     });
   } catch (err) {
     console.error(`Error loading manage page:`, err);
     res.status(500).send(`Error loading manage page`);
-  }
-});
-
-// (GET) Search Trivia questions
-router.get("/manage", async (req, res) => {
-  const searchQuery = req.query.q || ""; // Support search queries if needed
-  let triviaQuestions = [];
-  let searchResults = [];
-
-  try {
-    if (searchQuery) {
-      // Fetch trivia questions based on the search query
-      searchResults = await TriviaQuestion.find({
-        $text: { $search: searchQuery },
-      });
-    } else {
-      // Fetch all trivia questions if no search query
-      triviaQuestions = await TriviaQuestion.find();
-    }
-
-    // Render the EJS page, passing the questions
-    res.render("manageTriviaQuestions", {
-      triviaQuestions: searchQuery ? searchResults : triviaQuestions,
-      searchQuery, // Pass the search query if needed
-    });
-  } catch (err) {
-    console.error("Error loading manage page:", err);
-    res.status(500).send("Error loading trivia questions.");
   }
 });
 
@@ -221,20 +202,58 @@ router.patch(`/trivia-questions/:id`, async (req, res) => {
   /*   console.log("PATCH route triggered"); // Debugging
   console.log("ID received:", req.params.id); // Log the ID received
   console.log("Body received:", req.body); // Log the body */
+
+  const { question, correctAnswer, incorrectAnswers, difficulty } = req.body;
+  //Process the incorrect answers
+  const options = incorrectAnswers
+    ? incorrectAnswers.split(",").map((answer) => answer.trim())
+    : [];
+
+  //Add the correct answer to the options
+  options.push(correctAnswer);
+
+  //Validate the input using Joi schema
+  const { error, value } = triviaQuestionSchema.validate(
+    {
+      question,
+      options,
+      correctAnswer,
+      difficulty,
+    },
+    { abortEarly: false }
+  );
+  if (error) {
+    console.error(`Validation errors:`, error.details);
+    return res
+      .status(400)
+      .json({ errors: error.details.map((err) => err.message) });
+  }
+
   try {
+    //update the question in the database
     const updatedQuestion = await TriviaQuestion.findByIdAndUpdate(
       new mongoose.Types.ObjectId(req.params.id), //Casst to ObjectId
+      {
+        question: value.question,
+        correct_answer: value.correctAnswer,
+        incorrect_answers: value.options.filter(
+          (opt) => opt !== value.correctAnswer
+        ),
+        difficulty: value.difficulty,
+      },
       // req.param.id, //Find by MongoDB ObjectId
-      req.body, // Applies the updates
+      // req.body, // Applies the updates
       { new: true, runValidators: true } // Return updated doc and apply schema validation
     );
     if (!updatedQuestion) {
       return res.status(404).json({ message: `Trivia question not found` });
     }
+    console.log(`Question updated successfully`, updatedQuestion);
     res.redirect(`/triviaGame/manage?status=updated`); // redirect to manage page
   } catch (err) {
+    console.error(`Error updating trivia question:`, err);
     res
-      .status(400)
+      .status(500)
       .json({ message: `Error updating trivia question`, error: err.message });
   }
 });

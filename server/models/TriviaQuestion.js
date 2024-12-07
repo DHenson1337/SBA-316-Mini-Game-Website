@@ -25,8 +25,14 @@ const triviaQuestionSchema = new mongoose.Schema(
       validate: {
         // Custom validation: Ensure there is at least one incorrect answer
         validator: (value) => value.length >= 1,
-        message: `There must be at least one inccorect answer`,
+        message: `There must be at least one incorrect answer`,
       },
+    },
+    //The `difficulty` field: Question difficulty level
+    difficulty: {
+      type: String,
+      enum: ["easy", "medium", "hard"],
+      default: "medium,",
     },
   },
   {
@@ -34,7 +40,7 @@ const triviaQuestionSchema = new mongoose.Schema(
   }
 );
 
-//Add an index for the `question` field to optimize search queries
+// Add a text index for the `question` field to enable text search
 triviaQuestionSchema.index({ question: `text` });
 
 //Create the model (a wrapper around the schema for interacting with the database)
