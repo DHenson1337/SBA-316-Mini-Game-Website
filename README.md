@@ -54,6 +54,12 @@ TriviaGame Routes
 (PATCH)http://localhost:3000/triviaGame/trivia-questions/<id>
 (DELETE)http://localhost:3000/triviaGame/trivia-questions/<id>
 
+LeaderBoard Route:
+http://localhost:3000/triviaGame/leaderboard
+
+feedBack Route:
+http://localhost:3000/triviaGame/feedback
+
 4. Newsletter ✉️
    This section is my attempt at form validation (spoiler: it's not about me needing validation... but I wouldn't say no to a little praise 😊). This feature is part of my project requirements, but hey, if you want to give me some positive feedback, feel free to! 💌
 

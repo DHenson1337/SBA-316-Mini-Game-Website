@@ -59,7 +59,6 @@ router.get("/", (req, res) => {
 });
 
 // Route for POST request to /triviaGame (setting up the quiz)
-// Route for POST request to /triviaGame (setting up the quiz)
 router.post("/", async (req, res) => {
   const { amount, category, difficulty } = req.body;
 

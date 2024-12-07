@@ -11,6 +11,8 @@ const methodOverride = require("method-override"); // Include method-override
 
 //Pulling Routes
 const triviaRoutes = require("./routes/triviaGame.js");
+const leaderboardRoutes = require("./routes/leaderBoardRoutes.js");
+const feedbackRoutes = require("./routes/feedBackRoutes.js");
 const dumb1 = require("./routes/dumbRoute1.js");
 const dumb2 = require("./routes/dumbRoute2.js");
 
@@ -116,11 +118,17 @@ app.get("/triviaHome", (req, res) => {
 // console.log("Trivia routes are active");
 app.use("/triviaGame", triviaRoutes);
 
-// Route 2 dumb route
+//Leader board Route 2
+app.use("/triviaGame", leaderboardRoutes);
+
+//Feedback Route 3
+app.use("/triviaGame", feedbackRoutes);
+
+// Route 4 dumb route
 // localhost:3000/dumb
 app.use("/dumb", dumb1);
 
-//Route 3 dumb2 route
+//Route 5 dumb2 route
 // localhost:3000/dumb2
 app.use("/dumb2", dumb2);
 
