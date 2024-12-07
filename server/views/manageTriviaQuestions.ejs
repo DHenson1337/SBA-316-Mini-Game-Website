@@ -1,95 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Trivia Questions</title>
-  </head>
-  <body>
+</head>
+<body>
     <h1>Manage Trivia Questions</h1>
 
-    <!-- Create a Question -->
-    <form action="/triviaGame/trivia-questions" method="POST" id="createForm">
-      <!-- Question -->
-      <label for="question">Question:</label>
-      <input
-        type="text"
-        id="question"
-        name="question"
-        placeholder="Enter your trivia question"
-        required
-        minlength="5"
-        maxlength="200"
-      />
-      <br />
+    <!-- Form to create a new question -->
+    <h2>Create a New Trivia Question</h2>
+    <form action="/triviaGame/trivia-questions" method="POST">
+        <label for="question">Question:</label>
+        <input type="text" id="question" name="question" required>
 
-      <!-- Correct Answer -->
-      <label for="correct_answer">Correct Answer:</label>
-      <input
-        type="text"
-        id="correct_answer"
-        name="correct_answer"
-        placeholder="Enter the correct answer"
-        required
-      />
-      <br />
+        <label for="correctAnswer">Correct Answer:</label>
+        <input type="text" id="correctAnswer" name="correctAnswer" required>
 
-      <!-- Incorrect Answers -->
-      <label for="incorrect_answers"
-        >Incorrect Answers (comma-separated):</label
-      >
-      <input
-        type="text"
-        id="incorrect_answers"
-        name="incorrect_answers"
-        placeholder="Enter incorrect answers separated by commas"
-        required
-        pattern="[^,]+(,[^,]+)*"
-        title="Please enter at least one incorrect answer, separated by commas."
-      />
-      <br />
+        <label for="incorrectAnswers">Incorrect Answers (comma-separated):</label>
+        <input type="text" id="incorrectAnswers" name="incorrectAnswers" required>
 
-      <!-- Submit -->
-      <button type="submit">Create Trivia Question</button>
+        <label for="difficulty">Difficulty:</label>
+        <select id="difficulty" name="difficulty">
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+        </select>
+
+        <button type="submit">Create Question</button>
     </form>
 
-    <!-- Search form -->
-    <form action="/triviaGame/manage" method="GET">
-      <input
-        type="text"
-        name="q"
-        placeholder="Search by question..."
-        required
-      />
-      <button type="submit">Search</button>
-    </form>
-
-    <!-- Questions -->
-    <h2>
-      <% if (searchResults && searchResults.length > 0) { %>Search Results<% }
-      else { %>Existing Questions<% } %>
-    </h2>
-
+    <!-- List existing trivia questions -->
+    <h2>Existing Questions</h2>
     <ul>
-      <% if (searchResults && searchResults.length > 0) { %> <%
-      searchResults.forEach((question) => { %>
-      <li>
-        <strong><%= question.question %></strong><br />
-        Correct Answer: <%= question.correct_answer %><br />
-        Incorrect Answers: <%= Array.isArray(question.incorrect_answers) ?
-        question.incorrect_answers.join(", ") : "None provided" %>
-      </li>
-      <% }); %> <% } else if (triviaQuestions && triviaQuestions.length > 0) {
-      %> <% triviaQuestions.forEach((question) => { %>
-      <li>
-        <strong><%= question.question %></strong><br />
-        Correct Answer: <%= question.correct_answer %><br />
-        Incorrect Answers: <%= Array.isArray(question.incorrect_answers) ?
-        question.incorrect_answers.join(", ") : "None provided" %>
-      </li>
-      <% }); %> <% } else { %>
-      <li>No questions available.</li>
-      <% } %>
+        <% triviaQuestions.forEach(question => { %>
+            <li>
+                <strong>Question:</strong> <%= question.question %><br>
+                <strong>Correct Answer:</strong> <%= question.correct_answer %><br>
+                <strong>Incorrect Answers:</strong> <%= question.incorrect_answers.join(", ") %><br>
+                <strong>Difficulty:</strong> <%= question.difficulty %>
+                
+                <!-- Form to update a question -->
+                <form action="/triviaGame/trivia-questions/<%= question._id %>?_method=PATCH" method="POST">
+                    <label for="updateQuestion<%= question._id %>">Update Question:</label>
+                    <input type="text" id="updateQuestion<%= question._id %>" name="question" value="<%= question.question %>">
+
+                    <label for="updateCorrectAnswer<%= question._id %>">Update Correct Answer:</label>
+                    <input type="text" id="updateCorrectAnswer<%= question._id %>" name="correctAnswer" value="<%= question.correct_answer %>">
+
+                    <label for="updateIncorrectAnswers<%= question._id %>">Update Incorrect Answers (comma-separated):</label>
+                    <input type="text" id="updateIncorrectAnswers<%= question._id %>" name="incorrectAnswers" value="<%= question.incorrect_answers.join(', ') %>">
+
+                    <label for="updateDifficulty<%= question._id %>">Update Difficulty:</label>
+                    <select id="updateDifficulty<%= question._id %>" name="difficulty">
+                        <option value="easy" <%= question.difficulty === "easy" ? "selected" : "" %>>Easy</option>
+                        <option value="medium" <%= question.difficulty === "medium" ? "selected" : "" %>>Medium</option>
+                        <option value="hard" <%= question.difficulty === "hard" ? "selected" : "" %>>Hard</option>
+                    </select>
+
+                    <button type="submit">Update Question</button>
+                </form>
+
+                <!-- Form to delete a question -->
+                <form action="/triviaGame/trivia-questions/<%= question._id %>?_method=DELETE" method="POST">
+                    <button type="submit">Delete Question</button>
+                </form>
+            </li>
+        <% }); %>
     </ul>
-  </body>
+</body>
 </html>

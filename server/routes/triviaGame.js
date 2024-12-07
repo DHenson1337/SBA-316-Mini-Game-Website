@@ -115,32 +115,30 @@ router.get(`/manage`, async (req, res) => {
 });
 
 // (GET) Search Trivia questions
-router.get(`/manage`, async (req, res) => {
-  const searchQuery = req.query.q || ""; // Default to an empty string if no search query
+router.get("/manage", async (req, res) => {
+  const searchQuery = req.query.q || ""; // Support search queries if needed
   let triviaQuestions = [];
   let searchResults = [];
 
   try {
     if (searchQuery) {
-      console.log(`Search query: ${searchQuery}`);
+      // Fetch trivia questions based on the search query
       searchResults = await TriviaQuestion.find({
         $text: { $search: searchQuery },
-      }); // Perform a text search
+      });
     } else {
-      triviaQuestions = await TriviaQuestion.find(); // Fetch all questions
+      // Fetch all trivia questions if no search query
+      triviaQuestions = await TriviaQuestion.find();
     }
 
-    // Debugging: Log what is being passed to the template
-    console.log(`Trivia Questions:`, triviaQuestions);
-    console.log(`Search Results:`, searchResults);
-
-    res.render(`manageTriviaQuestions`, {
-      triviaQuestions,
-      searchResults,
+    // Render the EJS page, passing the questions
+    res.render("manageTriviaQuestions", {
+      triviaQuestions: searchQuery ? searchResults : triviaQuestions,
+      searchQuery, // Pass the search query if needed
     });
   } catch (err) {
-    console.error(`Error loading manage page:`, err);
-    res.status(500).send(`Error loading manage page`);
+    console.error("Error loading manage page:", err);
+    res.status(500).send("Error loading trivia questions.");
   }
 });
 
@@ -158,11 +156,18 @@ router.get(`/trivia-questions`, async (req, res) => {
 
 // (POST) post a trivia question
 router.post(`/trivia-questions`, async (req, res) => {
-  // Log the incoming request to debug issues
-  console.log("Request Body:", req.body);
+  // console.log("Request Body:", req.body);
 
-  // Extract fields from the request body
-  const { question, correctAnswer, options, difficulty } = req.body;
+  // Extract data from the form
+  const { question, correctAnswer, incorrectAnswers, difficulty } = req.body;
+
+  // Convert incorrectAnswers (comma-separated) into an array
+  const options = incorrectAnswers
+    ? incorrectAnswers.split(",").map((answer) => answer.trim())
+    : [];
+
+  // Add the correctAnswer to the options
+  options.push(correctAnswer);
 
   // Validate the input using Joi schema
   const { error, value } = triviaQuestionSchema.validate(
@@ -172,15 +177,13 @@ router.post(`/trivia-questions`, async (req, res) => {
       correctAnswer,
       difficulty,
     },
-    { abortEarly: false } // Collect all errors instead of stopping at the first error
+    { abortEarly: false } // Collect all errors
   );
 
-  // Handle validation errors
   if (error) {
-    console.error("Validation Errors:", error.details); // Log detailed errors for debugging
-    return res.status(400).json({
-      errors: error.details.map((err) => err.message),
-    });
+    return res
+      .status(400)
+      .json({ errors: error.details.map((err) => err.message) });
   }
 
   // Create and save the trivia question using validated data
@@ -190,33 +193,37 @@ router.post(`/trivia-questions`, async (req, res) => {
     incorrect_answers: value.options.filter(
       (opt) => opt !== value.correctAnswer
     ),
-    difficulty: value.difficulty, // Use the validated difficulty
+    difficulty: value.difficulty,
   });
 
   try {
-    const savedQuestion = await newQuestion.save();
-    console.log("Saved Question:", savedQuestion); // Log the saved question
+    await newQuestion.save();
+    console.log(`Trivia question saved successfully`);
+    // Redirect to the manage page after succesful creation
+    res.redirect(`/triviaGame/manage`);
+    /*   const savedQuestion = await newQuestion.save();
     res.status(201).json({
       message: "Trivia question created successfully!",
       data: savedQuestion,
-    });
+    }); */
   } catch (err) {
-    console.error("Error Saving Question:", err.message); // Log the error
-    res.status(400).json({
+    console.error(`Error adding trivia question`, err);
+    res.status(500).send(`Error adding trivia question`);
+    /* res.status(400).json({
       message: "Error adding trivia question",
       error: err.message,
-    });
+    }); */
   }
 });
 
 //(PATCH) Update a trivia question
 router.patch(`/trivia-questions/:id`, async (req, res) => {
-  console.log("PATCH route triggered"); // Debugging
+  /*   console.log("PATCH route triggered"); // Debugging
   console.log("ID received:", req.params.id); // Log the ID received
-  console.log("Body received:", req.body); // Log the body
+  console.log("Body received:", req.body); // Log the body */
   try {
     const updatedQuestion = await TriviaQuestion.findByIdAndUpdate(
-      mongoose.Types.ObjectId(req.params.id), //Casst to ObjectId
+      new mongoose.Types.ObjectId(req.params.id), //Casst to ObjectId
       // req.param.id, //Find by MongoDB ObjectId
       req.body, // Applies the updates
       { new: true, runValidators: true } // Return updated doc and apply schema validation
@@ -232,12 +239,14 @@ router.patch(`/trivia-questions/:id`, async (req, res) => {
   }
 });
 
+// (DELETE) Deleting a trivia Question
+
 router.delete(`/trivia-questions/:id`, async (req, res) => {
   console.log(`Delete route reached`); //Debugging the delete route again >.>
   console.log("DELETE ID:", req.params.id); // debugging
   try {
     const deletedQuestion = await TriviaQuestion.findByIdAndDelete(
-      mongoose.Types.ObjectId(req.params.id) //Cast to ObjectID
+      new mongoose.Types.ObjectId(req.params.id) //Cast to ObjectID
       // req.params.id
     ); //Find and delete by ObjectID
     if (!deletedQuestion) {
