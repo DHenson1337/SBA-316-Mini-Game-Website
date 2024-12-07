@@ -42,8 +42,9 @@ Had to also include (methodOverride to allow PATCH & DELETE methods through POST
 //http://localhost:3000/dumb?icecream=Vanilla
 //http://localhost:3000/dumb?size=tiny
 
+(SBA 319)
 3.D The main page http://localhost:3000/triviaHome
-3.E Seed the Data:
+3.E Seed the Data: node public/scripts/seedCustomQuestions.js
 3.F Create Indexes: node public/scripts/triviaGameInitIndexes.js
 3.G The routes revised. (But you can test them all under)
 http://localhost:3000/triviaGame/manage

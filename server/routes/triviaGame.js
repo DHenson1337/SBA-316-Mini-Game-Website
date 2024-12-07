@@ -14,12 +14,12 @@ const express = require(`express`);
 const router = express.Router();
 const mongoose = require(`mongoose`); // Import mongoose to use ObjectID (and hopefully fix Patch and Delete)
 const axios = require(`axios`); //Axios access
-const {
+/* const {
   getAllCustomQuestions,
   addCustomQuestion,
   updateCustomQuestion,
   deleteCustomQuestion,
-} = require("../../data/customQuestions"); // Import custom questions
+} = require("../../data/customQuestions"); // Import custom questions */
 
 //Define validation schema for trivia questions
 const triviaQuestionSchema = Joi.object({
@@ -59,14 +59,17 @@ router.get("/", (req, res) => {
 });
 
 // Route for POST request to /triviaGame (setting up the quiz)
+// Route for POST request to /triviaGame (setting up the quiz)
 router.post("/", async (req, res) => {
   const { amount, category, difficulty } = req.body;
 
   let questions;
+  let customQuestions = []; // Initialize empty array for custom questions
 
   try {
     if (category === "custom") {
-      questions = getAllCustomQuestions().slice(0, amount); // Select 'amount' custom questions
+      // Fetch custom questions from MongoDB
+      customQuestions = await TriviaQuestion.find({ difficulty }).limit(amount);
     } else {
       // Fetch questions from Open Trivia Database API
       const response = await axios.get(
@@ -75,10 +78,10 @@ router.post("/", async (req, res) => {
       questions = response.data.results; // Set the API results as questions
     }
 
-    // Render the triviaGame view, passing both API questions and custom questions
+    // Render the triviaGame view, passing API questions and custom questions
     res.render("triviaGame", {
-      questions,
-      customQuestions: getAllCustomQuestions(), // Make sure to pass customQuestions
+      questions: customQuestions.length > 0 ? customQuestions : questions,
+      customQuestions,
     });
   } catch (error) {
     console.error("Failed to fetch trivia questions:", error);
@@ -87,6 +90,7 @@ router.post("/", async (req, res) => {
       .send("Sorry, unable to fetch trivia questions. Please try again.");
   }
 });
+
 //====================GET, POST, PATCH, DELETE routes for custom questions========================
 //localhost:3000/triviaGame/manage
 
