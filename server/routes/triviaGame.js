@@ -1,11 +1,14 @@
 /* (Routes for Custom)
+TriviaGame Routes
 (GET) http://localhost:3000/triviaGame/trivia-questions
 (POST) http://localhost:3000/triviaGame/trivia-questions
 (PATCH)http://localhost:3000/triviaGame/trivia-questions/<id>
+(DELETE)http://localhost:3000/triviaGame/trivia-questions/<id>
 
 
 Manage custom Trivia Questions
 http://localhost:3000/triviaGame/manage*/
+const Joi = require("joi"); // For Validation
 const TriviaQuestion = require(`../models/TriviaQuestion`);
 const express = require(`express`);
 const router = express.Router();
@@ -17,6 +20,20 @@ const {
   updateCustomQuestion,
   deleteCustomQuestion,
 } = require("../../data/customQuestions"); // Import custom questions
+
+//Define validation schema for trivia questions
+const triviaQuestionSchema = Joi.object({
+  question: Joi.string().required().messages({
+    "string.empty": "The question field is required.",
+  }),
+  options: Joi.array().items(Joi.string()).min(2).required().messages({
+    "array.min": "At least two options are required",
+  }),
+  correctAnswer: Joi.string().required().messages({
+    "string.empty": "The correct answer field is required",
+  }),
+  difficulty: Joi.string().valid("easy", "medium", "hard").default("medium"),
+});
 
 //Test route to check TriviaQuestion model
 //localhost:3000/trivia/test-trivia-model
@@ -141,26 +158,54 @@ router.get(`/trivia-questions`, async (req, res) => {
 
 // (POST) post a trivia question
 router.post(`/trivia-questions`, async (req, res) => {
-  const { question, correct_answer, incorrect_answers } = req.body;
+  // Log the incoming request to debug issues
+  console.log("Request Body:", req.body);
 
-  //Ensure incorrect_answers is an array; convert it if necessary
-  const formattedIncorrectAnswers = Array.isArray(incorrect_answers) // Check if it's already an array
-    ? incorrect_answers
-    : incorrect_answers.split(`,`).map((ans) => ans.trim()); //Converts to string array if needed
+  // Extract fields from the request body
+  const { question, correctAnswer, options, difficulty } = req.body;
 
+  // Validate the input using Joi schema
+  const { error, value } = triviaQuestionSchema.validate(
+    {
+      question,
+      options,
+      correctAnswer,
+      difficulty,
+    },
+    { abortEarly: false } // Collect all errors instead of stopping at the first error
+  );
+
+  // Handle validation errors
+  if (error) {
+    console.error("Validation Errors:", error.details); // Log detailed errors for debugging
+    return res.status(400).json({
+      errors: error.details.map((err) => err.message),
+    });
+  }
+
+  // Create and save the trivia question using validated data
   const newQuestion = new TriviaQuestion({
-    question,
-    correct_answer,
-    incorrect_answers: formattedIncorrectAnswers, // Use the formatted array for the check
+    question: value.question,
+    correct_answer: value.correctAnswer,
+    incorrect_answers: value.options.filter(
+      (opt) => opt !== value.correctAnswer
+    ),
+    difficulty: value.difficulty, // Use the validated difficulty
   });
 
   try {
-    const savedQuestion = await newQuestion.save(); // Save to MongoSB
-    res.redirect(`/triviaGame/manage`); //redirect to the manage page
+    const savedQuestion = await newQuestion.save();
+    console.log("Saved Question:", savedQuestion); // Log the saved question
+    res.status(201).json({
+      message: "Trivia question created successfully!",
+      data: savedQuestion,
+    });
   } catch (err) {
-    res
-      .status(400)
-      .json({ message: `Error adding trivia question`, error: err.message });
+    console.error("Error Saving Question:", err.message); // Log the error
+    res.status(400).json({
+      message: "Error adding trivia question",
+      error: err.message,
+    });
   }
 });
 

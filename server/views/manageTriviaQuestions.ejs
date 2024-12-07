@@ -8,6 +8,51 @@
   <body>
     <h1>Manage Trivia Questions</h1>
 
+    <!-- Create a Question -->
+    <form action="/triviaGame/trivia-questions" method="POST" id="createForm">
+      <!-- Question -->
+      <label for="question">Question:</label>
+      <input
+        type="text"
+        id="question"
+        name="question"
+        placeholder="Enter your trivia question"
+        required
+        minlength="5"
+        maxlength="200"
+      />
+      <br />
+
+      <!-- Correct Answer -->
+      <label for="correct_answer">Correct Answer:</label>
+      <input
+        type="text"
+        id="correct_answer"
+        name="correct_answer"
+        placeholder="Enter the correct answer"
+        required
+      />
+      <br />
+
+      <!-- Incorrect Answers -->
+      <label for="incorrect_answers"
+        >Incorrect Answers (comma-separated):</label
+      >
+      <input
+        type="text"
+        id="incorrect_answers"
+        name="incorrect_answers"
+        placeholder="Enter incorrect answers separated by commas"
+        required
+        pattern="[^,]+(,[^,]+)*"
+        title="Please enter at least one incorrect answer, separated by commas."
+      />
+      <br />
+
+      <!-- Submit -->
+      <button type="submit">Create Trivia Question</button>
+    </form>
+
     <!-- Search form -->
     <form action="/triviaGame/manage" method="GET">
       <input
